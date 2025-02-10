@@ -1,0 +1,59 @@
+:root {
+    --bs-primary: #ff6c2f; /* Couleur Orange */
+    --bs-secondary: #5d7186;
+    --bs-gray-200: #eef2f7;
+    --bs-gray-400: #b0b0bb;
+    --bs-white: #ffffff;
+    --bs-dark: #323a46;
+    --bs-border-radius: 0.75rem;
+    --bs-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    --bs-body-font-family: "Play", sans-serif;
+}
+
+/* Organisation globale */
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR - Dashboard */
+.sidebar {
+    width: 250px;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar-menu li {
+    margin: 10px 0;
+}
+
+.sidebar-menu a {
+    color: var(--bs-white);
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: var(--bs-border-radius);
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu .active {
+    background-color: #ff6c2f;
+}

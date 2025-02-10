@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+       <html lang="en" data-bs-theme="light">
+       <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> producut admin</title>
+         <!-- Ajoutez le lien vers Bootstrap CSS -->
+    <!-- Ajouter Font Awesome pour l'icône utilisateur -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+       </head>
+       <body>
+  <!-- Contenu principal -->
+        <main class="content">
+            <header class="topbar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div class="topbar-left">
+                            <h4 class="page-title">Product List</h4>
+                        </div>  
+                        <div class="topbar-right">
+                            <!-- Dropdown Menu -->
+                            <div class="user-dropdown">
+                                <!-- Icône utilisateur pour ouvrir la liste déroulante -->
+                                <button class="btn btn-link user-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <!-- Icône utilisateur -->
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">Welcome!</h6>
+                                    <a class="dropdown-item" routerLink="/profile">Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item logout" routerLink="/signup">Logout</a>
+                                </div>
+                            </div>
+                        </div>          
+                    </div>
+                </div>
+            </header>
+
+            <div class="container-fluid">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th style="width: 20px;">
+                                    <div class="form-check">
+                                        <input type="checkbox" id="check1">
+                                        <label for="check1"></label>
+                                    </div>
+                                </th>
+                                <th class="black-text">ProductId</th> 
+                                <th class="black-text">Ref-Prod</th> 
+                                <th class="black-text">Description</th> 
+
+                                <th class="black-text">Comment</th> 
+                                <th class="black-text">Price</th> 
+                                <th class="black-text">Qte-Discount</th> 
+                                <th class="black-text">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let prod of products">
+                                <td>
+                                    <div class="form-check">
+                                        <input type="checkbox" id="check{{prod.idproduct}}">
+                                        <label for="check{{prod.idproduct}}"></label>
+                                    </div>
+                                </td>
+                                 <td>{{ prod.idproduct }}</td>
+                                <td>{{ prod.referenceProduct }}</td>
+                                <td>
+                                    <div class="product-description">
+                                        <div class="product-image">
+                                            <img [src]="prod.image" class="product-avatar">
+                                        </div>
+                                        <div>
+                                            <a routerLink="" class="product-name">{{ prod.description }}</a>
+                                        </div> 
+                                    </div>
+                                </td>
+                                
+                                <td>{{ prod.comment }}</td>
+                                <td>{{ prod.price | currency }}</td>
+                                <td>{{ prod.quantiteDiscount }}</td>
+                                <td>
+                                    <td class="button-container">
+                                        <button class="btn btn-warning btn-sm" (click)="editProduct(prod)"><i class="fas fa-edit"></i>Modifier</button>
+                                        <button class="btn btn-danger btn-sm" (click)="deleteProduct(prod.idproduct)"><i class="fas fa-trash"></i>Supprimer</button>
+                                      </td>
+                                
+                               
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+</body> 
+</html>

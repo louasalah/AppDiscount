@@ -1,0 +1,21 @@
+<div class="wrapper">
+    <!-- Sidebar (Dashboard) -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Dashboard</h2>
+        </div><br>
+        <ul class="sidebar-menu">
+            <li><a routerLink="/dashboard/productadmin" routerLinkActive="active">📦 Products</a></li>
+            <li><a routerLink="/dashboard/DiscountDefAdmin" routerLinkActive="active">💸 Discount-Def</a></li>
+            <li><a routerLink="/dashboard/LinkDiscProd" routerLinkActive="active">🔗 Link-disc-Prod</a></li>
+            <li><a routerLink="/dashboard/Holidays" routerLinkActive="active">📅 Holidays</a></li>
+
+        </ul>
+        
+    </aside>
+
+    <!-- Contenu principal -->
+    <main class="content">
+        <router-outlet></router-outlet>
+    </main>
+</div>

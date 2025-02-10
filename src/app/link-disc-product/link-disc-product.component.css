@@ -1,0 +1,165 @@
+.content {
+    margin-left: 260px;
+    width: calc(100% - 260px);
+    padding: 20px;
+}
+
+/* Formulaire */
+.form-container {
+    background-color: var(--bs-white);
+    padding: 30px;
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--bs-box-shadow);
+    margin-top: 50px;
+    max-width: 600px;
+    margin-left: 100px;
+    margin-right: 100px;
+
+}
+
+/* Styles généraux des champs de formulaire */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    color: var(--bs-dark);
+    font-size: 1rem;
+    display: block;
+    margin-bottom: 8px;
+}
+
+/* Changement des couleurs des boutons */
+button.btn-primary {
+    background-color: #ff6c2f; /* Remplacé par orange */
+    border: none;
+    padding: 12px 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: var(--bs-border-radius);
+    color: var(--bs-white);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button.btn-primary:hover {
+    background-color: #e65a00; /* Couleur au survol */
+}
+
+/* Champs de formulaire */
+.form-control {
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bs-gray-400);
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #ff6c2f; /* Remplacé par orange */
+    box-shadow: 0 0 5px rgba(255, 108, 47, 0.5);
+}
+
+/* Table */
+.table-container {
+    margin-top: 10px;
+    background-color: var(--bs-white);
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--bs-box-shadow);
+    padding: 20px;
+}
+
+.table {
+    width: 1000px;
+    border-collapse: collapse;
+    padding: 1000px;
+}
+
+.table th,
+.table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--bs-gray-400);
+    text-align: center;
+    font-size: 1rem;
+}
+
+/* Lignes alternées dans le tableau */
+.table tbody tr:nth-child(even) {
+    background-color: #f7f7f7;
+}
+
+.table th {
+    background-color: #ff6c2f; 
+    color: var(--bs-white);
+    font-size: 1.1rem;
+}
+
+/* Amélioration du design des éléments de sélection */
+select.form-control {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: var(--bs-border-radius);
+    border: 1px solid var(--bs-gray-400);
+    transition: border-color 0.3s ease;
+}
+
+select.form-control:focus {
+    border-color: #ff6c2f; /* Remplacé par orange */
+    box-shadow: 0 0 5px rgba(255, 108, 47, 0.5);
+}
+
+/* Icône utilisateur */
+.user-icon {
+    font-size: 1.5rem;
+    color: #ff6c2f; /* Remplacé par orange */
+}
+
+/* Dropdown Menu */
+.dropdown-menu {
+    background-color: var(--bs-white);
+    border-radius: var(--bs-border-radius);
+    box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: var(--bs-dark);
+    padding: 10px 15px;
+    font-size: 1rem;
+}
+
+.dropdown-item:hover {
+    background-color: #ff6c2f; /* Remplacé par orange */
+    color: var(--bs-white);
+}
+
+/* Option active dans la liste déroulante */
+.dropdown-header {
+    font-size: 1.1rem;
+    color: #ff6c2f; /* Remplacé par orange */
+}
+
+/* Ajout d'un petit espacement entre les champs */
+.form-group + .form-group {
+    margin-top: 10px;
+}
+
+.me-1{
+    margin-top: 4rem; 
+}
+.topbar {
+    background-color: var(--bs-white);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--bs-box-shadow);
+    cursor: pointer; 
+    background-color: black;
+    width: 1200px  ;
+}
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}

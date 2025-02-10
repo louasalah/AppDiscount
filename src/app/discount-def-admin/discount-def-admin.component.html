@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+       <html lang="en" data-bs-theme="light">
+       <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> producut admin</title>
+         <!-- Ajoutez le lien vers Bootstrap CSS -->
+    <!-- Ajouter Font Awesome pour l'icône utilisateur -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+       </head>
+       <body>
+  <!-- Contenu principal -->
+        <main class="content">
+            <header class="topbar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div class="topbar-left">
+                            <h4 class="page-title">Discount-Def</h4>
+                        </div>  
+                        <div class="topbar-right">
+                            <!-- Dropdown Menu -->
+                            <div class="user-dropdown">
+                                <!-- Icône utilisateur pour ouvrir la liste déroulante -->
+                                <button class="btn btn-link user-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <!-- Icône utilisateur -->
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">Welcome!</h6>
+                                    <a class="dropdown-item" routerLink="/profile">Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item logout" routerLink="/signup">Logout</a>
+                                </div>
+                            </div>
+                        </div>          
+                    </div>
+                </div>
+            </header>
+    <div class="container-fluid">
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 20px;">
+                            <div class="form-check">
+                                <input type="checkbox" id="check1">
+                                <label for="check1"></label>
+                            </div>
+                        </th>
+                        <th class="black-text">ID-DISC</th>
+                        <th class="black-text">Ref-Disc</th>  
+                        <th class="black-text">Type</th> 
+                        <th class="black-text">Valeur</th> 
+                        <th class="black-text">Recouvrement</th>
+                        <th class="black-text">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let DiscDef of discounts">
+                        <td>
+                            <div class="form-check">
+                                <input type="checkbox" id="check{{DiscDef.idDisc}}">
+                                <label for="check{{DiscDef.idDisc}}"></label>
+                            </div>
+                        </td>
+                        <td>{{ DiscDef.idDisc }}</td>
+                        <td>{{ DiscDef.refDisc }}</td>
+                        <td>{{ DiscDef.type }}</td>
+                        <td>{{ DiscDef.valeur }}</td>
+                        <td>{{ DiscDef.recouvrement }}</td>
+                        <td>
+                        <!-- Bouton Modifier -->
+                            <button class="btn btn-warning btn-sm" (click)="editDiscount(DiscDef)">
+                                <i class="fas fa-edit"></i> Modifier
+                            </button>
+                            <!-- Bouton Supprimer -->
+                            <button class="btn btn-danger btn-sm ms-2" (click)="deleteDiscount(DiscDef.idDisc)">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>

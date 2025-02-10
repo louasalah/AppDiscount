@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+       <html lang="en" data-bs-theme="light">
+       <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> producut admin</title>
+         <!-- Ajoutez le lien vers Bootstrap CSS -->
+    <!-- Ajouter Font Awesome pour l'icône utilisateur -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+       </head>
+       <body>
+  <!-- Contenu principal -->
+        <main class="content">
+            <header class="topbar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div class="topbar-left">
+                            <h4 class="page-title">Link DiscD</h4>
+                        </div>  
+                        <div class="topbar-right">
+                            <!-- Dropdown Menu -->
+                            <div class="user-dropdown">
+                                <!-- Icône utilisateur pour ouvrir la liste déroulante -->
+                                <button class="btn btn-link user-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <!-- Icône utilisateur -->
+                                </button>
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">Welcome!</h6>
+                                    <a class="dropdown-item" routerLink="/profile">Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item logout" routerLink="/signup">Logout</a>
+                                </div>
+                            </div>
+                        </div>          
+                    </div>
+                </div>
+            </header>
+<div class="container-fluid d-flex justify-content-end">
+  <!-- Formulaire élargi et bien positionné -->
+  <div class="form-container w-100 p-4 shadow-lg rounded bg-white mt-4  ">
+    <h3 class="text-center">Lier un produit à une remise</h3>
+
+    <!-- Sélection du produit -->
+    <div class="form-group">
+      <label for="product">Sélectionner un produit</label>
+      <select class="form-control" id="product" [(ngModel)]="selectedProductId"
+        (change)="selectProduct(selectedProductId)">
+        <option value="">-- Choisissez un produit --</option>
+        <option *ngFor="let product of products" [value]="product.idproduct">
+          {{ product.idproduct }} - {{ product.description }}
+        </option>
+      </select>
+    </div>
+    <!-- Sélection de la remise -->
+    <div class="form-group">
+      <label for="discount">Sélectionner une remise</label>
+      <select class="form-control" id="discount" [(ngModel)]="selectedDiscountId"
+        (change)="selectDiscount(selectedDiscountId)">
+        <option value="">-- Choisissez une remise --</option>
+        <option *ngFor="let discount of discounts" [value]="discount.idDisc">
+          {{ discount.idDisc }} - {{ discount.valeur }}%
+        </option>
+      </select>
+    </div>
+
+    <!-- Activation -->
+    <div class="form-group">
+      <label>Actif</label><br>
+      <input type="checkbox" [(ngModel)]="link.active">
+    </div>
+
+    <!-- Durée -->
+    <div class="form-group">
+      <label for="duration">Durée (jours)</label>
+      <input type="number" id="duration" class="form-control" [(ngModel)]="link.duration">
+    </div>
+
+    <!-- Date de début -->
+    <div class="form-group">
+      <label for="validFrom">Date de début</label>
+      <input type="date" id="validFrom" class="form-control" [(ngModel)]="link.valideFrom">
+    </div>
+
+    <!-- Date de fin -->
+    <div class="form-group">
+      <label for="validTo">Date de fin</label>
+      <input type="date" id="validTo" class="form-control" [(ngModel)]="link.valideTo">
+    </div>
+
+    <!-- Priorité -->
+    <div class="form-group">
+      <label for="priority">Priorité</label>
+      <select id="priority" class="form-control" [(ngModel)]="link.priority">
+        <option value="High">High</option>
+        <option value="Medium">Medium</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+
+    <!-- Lier produit et remise -->
+    <div class="form-group mt-3 text-center">
+      <button class="btn btn-primary w-100" (click)="linkProductToDiscount()">Lier</button>
+    </div>
+  </div>
+</div>
+
+<!-- Tableau élargi -->
+<div class="container-fluid     me-1 mt-6">
+  <h3 class="text-center">Liens produits-remises</h3>
+  <div class="table-responsive">
+    <table class="table text-center table-bordered">
+      <thead>
+        <tr>
+          <th>ID-Lien</th>
+          <th>ID-Remise</th>
+          <th>ID-Produit</th>
+          <th>Active</th>
+          <th>Durée (jours)</th>
+          <th>Valide Du</th>
+          <th>Valide Jusqu'à</th>
+          <th>Priorité</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let link of Links">
+          <td>{{ link.idLink }}</td>
+          <td>{{ link.discountId }}</td>
+          <td>{{ link.productId }}</td>
+          <td>{{ link.active ? 'Oui' : 'Non' }}</td>
+          <td>{{ link.duration }}</td>
+          <td>{{ link.valideFrom | date:'dd/MM/yyyy' }}</td>
+          <td>{{ link.valideTo | date:'dd/MM/yyyy' }}</td>
+          <td>{{ link.priority }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
