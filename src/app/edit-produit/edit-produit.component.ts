@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class EditProduitComponent implements OnInit {
   products: any = {};
   idProd: number | null = null;
-
   constructor(
     private ProdServ: ProductService,
     private route: ActivatedRoute,
@@ -38,19 +37,16 @@ export class EditProduitComponent implements OnInit {
 
   // Mettre à jour le produit
   updateProduct(): void {
-    const updatedProduct = {
-      idproduct: this.products.idproduct,
-      quantiteDiscount: this.products.quantiteDiscount
-    };
-
-    this.ProdServ.updateProduct(updatedProduct).subscribe(
-      (response) => {
-        console.log('Produit mis à jour avec succès', response);
-        this.router.navigate(['/productadmin']);
-      },
-      (error) => {
-        console.error('Erreur lors de la mise à jour du produit', error);
-      }
-    );
+    if (this.idProd !== null) {
+      this.ProdServ.updateProduct(this.idProd, this.products).subscribe(
+        (response) => {
+          console.log('Produit mis à jour avec succès', response);
+          this.router.navigate(['/dashboard/productadmin']);
+        },
+        (error) => {
+          console.error('Erreur lors de la mise à jour du produit', error);
+        }
+      );
+    }
   }
 }

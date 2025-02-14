@@ -1,0 +1,111 @@
+:root {
+    --bs-primary: #ff6c2f;
+    --bs-secondary: #5d7186;
+    --bs-gray-200: #eef2f7;
+    --bs-gray-400: #b0b0bb;
+    --bs-white: #ffffff;
+    --bs-dark: #323a46;
+    --bs-border-radius: 0.75rem;
+    --bs-box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
+    --bs-body-font-family: "Play", sans-serif;
+}
+
+body {
+    background-color: var(--bs-gray-200);
+    font-family: var(--bs-body-font-family);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.content {
+    padding: 20px;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.form-container {
+    background-color: var(--bs-white);
+    padding: 20px;
+    border-radius: var(--bs-border-radius);
+    box-shadow: var(--bs-box-shadow);
+    width: 100%;
+    max-width: 600px;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: var(--bs-dark);
+}
+
+.form-container label {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--bs-dark);
+}
+
+.form-container input,
+.form-container select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: var(--bs-border-radius);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.form-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: var(--bs-primary);
+    border: none;
+    color: white;
+    border-radius: var(--bs-border-radius);
+    cursor: pointer;
+    width: 100%;
+}
+
+.form-container button:hover {
+    background-color: #e65c2f;
+}
+
+.form-container input:hover,
+.form-container select:hover {
+    border-color: var(--bs-primary);
+}
+
+.page-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.topbar {
+    background-color: black;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: var(--bs-box-shadow);
+    width: 1200px;
+}
+
+.topbar .user-icon {
+    color: var(--bs-primary);
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.form-container input:focus,
+.form-container select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: 0 0 5px rgba(255, 108, 47, 0.5);
+}

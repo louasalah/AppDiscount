@@ -58,17 +58,13 @@
         (change)="selectDiscount(selectedDiscountId)">
         <option value="">-- Choisissez une remise --</option>
         <option *ngFor="let discount of discounts" [value]="discount.idDisc">
-          {{ discount.idDisc }} - {{ discount.valeur }}%
+          {{ discount.idDisc }} - {{ discount.valeur }} 
+          <!-- Vérification du type de remise -->
+          <span *ngIf="discount.type === 'fixed'"> DT</span>
+          <span *ngIf="discount.type === 'percentage'">%</span>
         </option>
       </select>
     </div>
-
-    <!-- Activation -->
-    <div class="form-group">
-      <label>Actif</label><br>
-      <input type="checkbox" [(ngModel)]="link.active">
-    </div>
-
     <!-- Durée -->
     <div class="form-group">
       <label for="duration">Durée (jours)</label>

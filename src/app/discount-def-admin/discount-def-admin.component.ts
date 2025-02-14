@@ -12,7 +12,7 @@ export class DiscountDefAdminComponent {
   
 
 
-  constructor(private DiscDefServ: DiscountDefService,private router: Router) {}
+  constructor(private DiscDefServ: DiscountDefService) {}
 
   ngOnInit(): void {
     this.loadDiscounts();
@@ -28,10 +28,6 @@ export class DiscountDefAdminComponent {
       }
     );
   }
-  //modifier une remise specifique 
-  editDiscount(discount: any): void {
-    this.router.navigate(['/dashboard/edit-discount', discount.idDisc]);
-}
 
 
   // Supprimer une remise spécifique

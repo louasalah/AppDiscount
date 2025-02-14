@@ -10,7 +10,7 @@ export class ProductAdminComponent implements OnInit{
   products: any[] = [];
 
 
-  constructor(private ProdServ: ProductService,private router: Router) {}
+  constructor(private ProdServ: ProductService) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -26,11 +26,7 @@ export class ProductAdminComponent implements OnInit{
       }
     );
   }
-   // Modifier un produit
-   editProduct(prod: any): void {
-    this.router.navigate(['/dashboard/edit-produit', prod.idproduct]);
-  }
-
+   
   // Supprimer un produit
   deleteProduct(idproduct: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {

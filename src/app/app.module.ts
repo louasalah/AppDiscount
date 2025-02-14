@@ -10,8 +10,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
 import { SigninComponent } from './signin/signin.component';
 import { TraceclientComponent } from './traceclient/traceclient.component';
-import { HTTP_INTERCEPTORS, HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
-import { ErrorInterceptorComponent } from './error-interceptor/error-interceptor.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
 import { ProductAdminComponent } from './product-admin/product-admin.component';
@@ -22,6 +20,8 @@ import { EditDiscountComponent } from './edit-discount/edit-discount.component';
 import { EditProduitComponent } from './edit-produit/edit-produit.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { EditHolidaysComponent } from './edit-holidays/edit-holidays.component';
+import { AjoutDiscountComponent } from './ajout-discount/ajout-discount.component';
+import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
 
 
 
@@ -46,6 +46,7 @@ import { EditHolidaysComponent } from './edit-holidays/edit-holidays.component';
     EditProduitComponent,
     HolidaysComponent,
     EditHolidaysComponent,
+    AjoutDiscountComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +57,7 @@ import { EditHolidaysComponent } from './edit-holidays/edit-holidays.component';
   providers: [
     
     provideHttpClient(withFetch()),
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptorComponent , multi: true }
+  
   ],
   bootstrap: [AppComponent]
 })

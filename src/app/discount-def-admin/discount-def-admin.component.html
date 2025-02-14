@@ -36,6 +36,11 @@
                 </div>
             </header>
     <div class="container-fluid">
+        <div class="mb-3">
+            <button class="btn btn-primary" [routerLink]="['/dashboard/ajoutDiscount']">
+                <i class="fas fa-plus"></i> Ajouter
+            </button>
+        </div>
         <div class="table-container">
             <table class="table">
                 <thead>
@@ -69,7 +74,7 @@
                         <td>{{ DiscDef.recouvrement }}</td>
                         <td>
                         <!-- Bouton Modifier -->
-                            <button class="btn btn-warning btn-sm" (click)="editDiscount(DiscDef)">
+                            <button class="btn btn-warning btn-sm" [routerLink]="['/dashboard/edit-discount',DiscDef.idDisc]">
                                 <i class="fas fa-edit"></i> Modifier
                             </button>
                             <!-- Bouton Supprimer -->

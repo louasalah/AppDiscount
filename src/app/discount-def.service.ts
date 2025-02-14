@@ -26,4 +26,11 @@ export class DiscountDefService {
   deleteDiscountDef(id: number): Observable<any> {
     return this.http.delete<any>(`${this.url}/discounts/${id}`); 
   }
+  getApplicableDiscounts(price: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/discounts/applicable/${price}`);
+  }
+   // Service pour ajouter une nouvelle remise
+   AjoutDiscount(discountData: any): Observable<any> {
+    return this.http.post<any>(`${this.url}/discounts/addDisc`, discountData);
+  }
 }

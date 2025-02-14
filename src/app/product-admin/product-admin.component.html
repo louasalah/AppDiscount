@@ -80,11 +80,11 @@
                                 </td>
                                 
                                 <td>{{ prod.comment }}</td>
-                                <td>{{ prod.price | currency }}</td>
+                                <td>{{ prod.price | currency:'TND' }}</td>
                                 <td>{{ prod.quantiteDiscount }}</td>
                                 <td>
                                     <td class="button-container">
-                                        <button class="btn btn-warning btn-sm" (click)="editProduct(prod)"><i class="fas fa-edit"></i>Modifier</button>
+                                        <button class="btn btn-warning btn-sm" [routerLink]="['/dashboard/edit-produit', prod.idproduct]"><i class="fas fa-edit"></i>Modifier</button>
                                         <button class="btn btn-danger btn-sm" (click)="deleteProduct(prod.idproduct)"><i class="fas fa-trash"></i>Supprimer</button>
                                       </td>
                                 

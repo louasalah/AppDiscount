@@ -16,6 +16,7 @@ import { EditDiscountComponent } from './edit-discount/edit-discount.component';
 import { EditProduitComponent } from './edit-produit/edit-produit.component';
 import { EditHolidaysComponent } from './edit-holidays/edit-holidays.component';
 import { HolidaysComponent } from './holidays/holidays.component';
+import { AjoutDiscountComponent } from './ajout-discount/ajout-discount.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'trace/:productId', component: TraceclientComponent },
+
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -35,7 +37,8 @@ const routes: Routes = [
       { path: 'LinkDiscProd', component: LinkDiscProductComponent },
       { path: 'Holidays', component: HolidaysComponent },
       { path: 'edit-discount/:id', component: EditDiscountComponent },
-      { path: 'edit-produit/:id', component: EditProduitComponent },  
+      { path: 'edit-produit/:id', component: EditProduitComponent },
+      { path: 'ajoutDiscount', component: AjoutDiscountComponent },
       { path: 'edit-Holidays/:id', component: EditHolidaysComponent }  ],
   },
 ];

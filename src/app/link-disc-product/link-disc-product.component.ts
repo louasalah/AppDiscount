@@ -62,9 +62,20 @@ export class LinkDiscProductComponent implements OnInit {
   selectProduct(productId: number): void {
     this.selectedProductId = productId;
     this.ProdServ.getProductById(productId).subscribe(
-      (data) => { this.selectedProduct = data; },
-      
-      (error) => { console.error('Erreur lors du chargement du produit:', error); }
+    (data) => { 
+      this.selectedProduct = data;
+      if (this.selectedProduct) {
+        this.loadApplicableDiscounts(this.selectedProduct.price); 
+      }
+    },
+    (error) => { console.error('Erreur lors du chargement du produit:', error); }
+  );
+  
+}
+  loadApplicableDiscounts(price: number): void {
+    this.DiscDefServ.getApplicableDiscounts(price).subscribe(
+      (data) => { this.discounts = data; },
+      (error) => { console.error('Erreur lors du chargement des remises:', error); }
     );
   }
 
@@ -85,7 +96,7 @@ export class LinkDiscProductComponent implements OnInit {
     const linkData = {
       idproduct: this.selectedProduct.idproduct,  
       idDisc: this.selectedDiscount.idDisc,
-      active: this.link.active,
+      active: false,
       duration: this.link.duration,
       valideFrom: this.link.valideFrom,
       valideTo: this.link.valideTo,

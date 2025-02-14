@@ -39,9 +39,9 @@ export class EditDiscountComponent {
   updateDiscount(): void {
     if (this.idDisc !== null) {
       this.DiscDefServ.updateDiscountDef(this.idDisc, this.discount).subscribe(
-        (updatedDiscount) => {
-          this.discount = updatedDiscount;
-          this.router.navigate(['/DiscountDefAdmin']); 
+        (response) => {
+          this.discount = response;
+          this.router.navigate(['/dashboard/DiscountDefAdmin']); 
         },
         (error) => {
           console.error('Erreur lors de la modification de la remise:', error);
