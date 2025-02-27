@@ -11,8 +11,8 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   // Service pour les produits par catégorie pour les clients
-  getProductsByCategory(category: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.url}/categories/${category}`); 
+  getProductsByCategory(nom: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/products/category/${nom}`);
   }
 
     // Service pour obtenir tous les produits
@@ -30,8 +30,8 @@ export class ProductService {
     return this.http.put<any>(`${this.url}/products/${idProd}`, productData);
   }
 
-  // Service pour supprimer un produit
-  deleteProduct(id: number): Observable<any> {
-    return this.http.delete<any>(`${this.url}/products/${id}`);
+  deleteProduct(idproduct: number): Observable<void> {
+    return this.http.delete<void>(`http://localhost:8080/api/products/${idproduct}`);
   }
+  
 }

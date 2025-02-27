@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -9,17 +9,26 @@ import { ProductService } from '../product.service';
 })
 export class ForfaitsMobilesComponent  implements OnInit {
   products: any[] = [];
-
-  constructor(private ProdServ: ProductService, private router: Router) {}
+    category: string = '';
+  
+    constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.ProdServ.getProductsByCategory('ForfaitsMobiles').subscribe((data) => {
-      this.products = data;
+    this.route.paramMap.subscribe(params => {
+      const nom = params.get('nom');
+      console.log("my name", nom); 
+      if (nom) {
+        this.loadProducts(nom);
+      }
     });
   }
-
-  EnvoieId(productId: number): void {
-   
-    this.router.navigate(['/trace', productId]);
+  
+  
+    loadProducts(nom: string): void {
+      this.productService.getProductsByCategory(nom).subscribe(data => {
+        this.products = data;
+        console.log('Products for category:', nom, this.products);
+      });
+    }
   }
-}
+  

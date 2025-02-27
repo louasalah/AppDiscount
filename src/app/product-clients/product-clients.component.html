@@ -29,11 +29,10 @@
                                 Category
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                                <li><a class="dropdown-item" [routerLink]="['/products/category/Smartphones']">Smartphones</a></li>
-                                <li><a class="dropdown-item" [routerLink]="['/products/category/ForfaitsMobiles']">Forfaits Mobiles</a></li>
-                                <li><a class="dropdown-item" [routerLink]="['/products/category/ServicesInternet']">Services Internet</a></li>
+                                <li><a class="dropdown-item" routerLink="/products/category/Smartphones">Smartphones</a></li>
+                                <li><a class="dropdown-item" routerLink="/products/category/ForfaitsMobiles">ForfaitsMobiles</a></li>
+                                <li><a class="dropdown-item" routerLink="/products/category/ServicesInternet">ServicesInternet</a></li>
                             </ul>
-                            
                         </li>
                     </ul>
     
@@ -61,22 +60,18 @@
         <div class="category-cards">
             <div class="category-card">
                 <h3>Smartphones</h3>
-                <!-- Ajout de routerLink pour rediriger vers la catégorie 'Forfaits Mobiles' -->
-                <button [routerLink]="['/products/category/Smartphones']">See more</button>
+                <button>See more</button>
             </div>
             <div class="category-card">
-                <h3>Forfaits mobiles</h3>
-                <!-- Ajout de routerLink pour rediriger vers la catégorie 'Accessoires' -->
-                <button [routerLink]="['/products/category/ForfaitsMobiles']">See more</button>
+                <h3>Accessoires</h3>
+                <button>See more</button>
             </div>
             <div class="category-card">
                 <h3>Offres Internet</h3>
-                <!-- Ajout de routerLink pour rediriger vers la catégorie 'Offres Internet' -->
-                <button [routerLink]="['/products/category/ServicesInternet']">See more</button>
+                <button>See more</button>
             </div>
         </div>
     </section>
-    
 
     <!-- Sidebar + Products -->
     <div class="content-wrapper">
@@ -102,21 +97,23 @@
         </aside>
 
         <!-- Products -->
-        <section class="products">
-            <div class="product-card" *ngFor="let prod of products">
-                <span class="special-offer" *ngIf="prod.discountedPrice < prod.price">Special Offer</span>
-                <div class="product-image">
-                    <img [src]="prod.imageUrl" alt="{{ prod.description }}">
-                </div>
-                <h4>{{ prod.description }}</h4>
-                <div class="price">
-                    <span class="discounted-price">{{ prod.discountedPrice }} DT</span>
-                    <span class="price" *ngIf="prod.price !== prod.discountedPrice">{{ prod.price }} DT</span>
-                </div>
-                <button class="coupon-btn">🛒COUPON</button>
-            </div>
-        </section>
-        
+     
+            <section class="products">
+                <div class="product-card">
+                    <span class="special-offer">Special Offer</span>
+                    <div class="product-image">
+                        <img src="#" alt="prodImage">
+                    </div>
+                    <h4>Product Name</h4>
+                    <div class="price">
+                        <span class="discounted-price">0.0 DT</span>
+                        <span class="original-price">0.0 DT</span>
+                    </div>
+    
+                    <button class="coupon-btn">🛒COUPON</button>
+                </div> 
+            </section>
+       
     </div>
   <!-- Footer Section -->
   <footer class="footer">
@@ -151,4 +148,3 @@
 
 </body>
 </html>
-

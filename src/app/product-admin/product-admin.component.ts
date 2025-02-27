@@ -26,13 +26,11 @@ export class ProductAdminComponent implements OnInit{
       }
     );
   }
-   
-  // Supprimer un produit
   deleteProduct(idproduct: number): void {
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
       this.ProdServ.deleteProduct(idproduct).subscribe(
         () => {
-          this.loadProducts(); 
+          this.loadProducts();  // Rafraîchit la liste des produits après la suppression
         },
         (error) => {
           console.error('Erreur lors de la suppression:', error);
@@ -40,4 +38,7 @@ export class ProductAdminComponent implements OnInit{
       );
     }
   }
+  
+  
+  
 }

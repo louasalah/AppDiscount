@@ -1,25 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../product.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-smartphones',
   templateUrl: './smartphones.component.html',
-  styleUrl: './smartphones.component.css'
+  styleUrls: ['./smartphones.component.css']
 })
-export class SmartphonesComponent {
-products: any[] = [];
+export class SmartphonesComponent implements OnInit {
+  products: any[] = [];
+  category: string = '';
 
-  constructor(private ProdServ: ProductService, private router: Router) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService) {}
 
   ngOnInit(): void {
-    this.ProdServ.getProductsByCategory('Smartphone').subscribe((data) => {
-      this.products = data;
+    this.route.paramMap.subscribe(params => {
+      const nom = params.get('nom');
+      console.log("my name", nom); 
+      if (nom) {
+        this.loadProducts(nom);
+      }
     });
   }
+  
 
-  EnvoieId(productId: number): void {
-   
-    this.router.navigate(['/trace', productId]);
+  loadProducts(nom: string): void {
+    this.productService.getProductsByCategory(nom).subscribe(data => {
+      this.products = data;
+      console.log('Products for category:', nom, this.products);
+    });
   }
 }

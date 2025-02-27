@@ -17,17 +17,24 @@ import { EditProduitComponent } from './edit-produit/edit-produit.component';
 import { EditHolidaysComponent } from './edit-holidays/edit-holidays.component';
 import { HolidaysComponent } from './holidays/holidays.component';
 import { AjoutDiscountComponent } from './ajout-discount/ajout-discount.component';
+import { ClientsComponent } from './clients/clients.component';
+import { ProductClientsComponent } from './product-clients/product-clients.component';
+import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-clients.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'Smartphones', component: SmartphonesComponent },
-  { path: 'ForfaitsMobiles', component: ForfaitsMobilesComponent },
-  { path: 'ServicesInternet', component: ServicesInternetComponent },
+  { path: 'products/category/:nom', component: SmartphonesComponent },
+  { path: 'products/category/:nom', component: ForfaitsMobilesComponent },
+  { path: 'products/category/:nom', component: ServicesInternetComponent },  
   { path: 'profile', component: ProfileComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'trace/:productId', component: TraceclientComponent },
+  { path: 'clients', component:ClientsComponent} ,
+  { path: 'clientsprod', component:ProductClientsComponent} ,
+  { path: 'detailsClientsProd', component:DetailProdClientsComponent} ,
 
+  
   {
     path: 'dashboard',
     component: DashboardComponent,
@@ -39,7 +46,8 @@ const routes: Routes = [
       { path: 'edit-discount/:id', component: EditDiscountComponent },
       { path: 'edit-produit/:id', component: EditProduitComponent },
       { path: 'ajoutDiscount', component: AjoutDiscountComponent },
-      { path: 'edit-Holidays/:id', component: EditHolidaysComponent }  ],
+      { path: 'edit-Holidays/:id', component: EditHolidaysComponent },
+    ]
   },
 ];
 

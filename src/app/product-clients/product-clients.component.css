@@ -1,7 +1,4 @@
-
-
-
-  /* Reset CSS */
+/* Reset CSS */
 * {
     margin: 0;
     padding: 0;
@@ -213,7 +210,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     position: relative;
 }
-/*
+
 .special-offer {
     position: absolute;
     top: 10px;
@@ -225,7 +222,7 @@
     font-weight: bold;
     border-radius: 5px;
 }
-*/
+
 .product-image {
     background: #ccc;
     height: 200px;
@@ -306,5 +303,3 @@
     margin-top: 20px;
     color: white;
 }
-
-

@@ -64,20 +64,15 @@ export class LinkDiscProductComponent implements OnInit {
     this.ProdServ.getProductById(productId).subscribe(
     (data) => { 
       this.selectedProduct = data;
-      if (this.selectedProduct) {
-        this.loadApplicableDiscounts(this.selectedProduct.price); 
-      }
+      // if (this.selectedProduct) {
+      //   this.loadApplicableDiscounts(this.selectedProduct.price); 
+      // }
     },
     (error) => { console.error('Erreur lors du chargement du produit:', error); }
   );
   
 }
-  loadApplicableDiscounts(price: number): void {
-    this.DiscDefServ.getApplicableDiscounts(price).subscribe(
-      (data) => { this.discounts = data; },
-      (error) => { console.error('Erreur lors du chargement des remises:', error); }
-    );
-  }
+ 
 
   selectDiscount(discountId: number): void {
     this.selectedDiscountId = discountId;
@@ -100,7 +95,8 @@ export class LinkDiscProductComponent implements OnInit {
       duration: this.link.duration,
       valideFrom: this.link.valideFrom,
       valideTo: this.link.valideTo,
-      priority: this.link.priority
+      priority: this.link.priority,
+ 
     };
       
    

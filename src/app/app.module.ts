@@ -22,6 +22,9 @@ import { HolidaysComponent } from './holidays/holidays.component';
 import { EditHolidaysComponent } from './edit-holidays/edit-holidays.component';
 import { AjoutDiscountComponent } from './ajout-discount/ajout-discount.component';
 import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/http';
+import { ClientsComponent } from './clients/clients.component';
+import { ProductClientsComponent } from './product-clients/product-clients.component';
+import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-clients.component';
 
 
 
@@ -47,6 +50,9 @@ import { HttpClientModule, provideHttpClient, withFetch } from '@angular/common/
     HolidaysComponent,
     EditHolidaysComponent,
     AjoutDiscountComponent,
+    ClientsComponent,
+    ProductClientsComponent,
+    DetailProdClientsComponent,
   ],
   imports: [
     BrowserModule,

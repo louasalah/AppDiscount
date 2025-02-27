@@ -6,10 +6,10 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LinkProdDiscService {
-private url = 'http://localhost:8080/aapie';
+private url = 'http://localhost:8080/aapiee';
   constructor(private http: HttpClient) { }
   addLinkProdDisc(linkData: any): Observable<any> {
-    return this.http.post<any>(`${this.url}/add`, linkData);
+    return this.http.post<any>(`http://localhost:8080/aapiee/add`, linkData);
   }
 
   getLinks(): Observable<any[]> {

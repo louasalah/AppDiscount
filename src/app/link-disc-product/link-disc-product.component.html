@@ -115,6 +115,8 @@
           <th>Valide Du</th>
           <th>Valide Jusqu'à</th>
           <th>Priorité</th>
+          <th>orginal price</th>
+          <th>discounted price</th>
         </tr>
       </thead>
       <tbody>
@@ -127,7 +129,10 @@
           <td>{{ link.valideFrom | date:'dd/MM/yyyy' }}</td>
           <td>{{ link.valideTo | date:'dd/MM/yyyy' }}</td>
           <td>{{ link.priority }}</td>
-        </tr>
+      <!-- Prix Original -->
+      <td>{{ link.price }} DT</td>
+      <td>{{ link.discountedPrice }} DT</td>
+    </tr>
       </tbody>
     </table>
   </div>
