@@ -27,12 +27,11 @@ export class TraceclientComponent implements OnInit, OnDestroy {
   
     if (this.idproduct) {
       this.trackserv.startTracking(this.pagename);
-      this.trackserv.trackClick(this.idproduct); // Incrémente le compteur dès la visite de la page
+      this.trackserv.trackClick(this.idproduct); // Enregistre le clic si pas encore cliqué dans la session
     }
     this.loadTrackingData();
   }
   
-
   loadTrackingData(): void {
     this.trackserv.getTrackingData().subscribe(
       (data) => {
@@ -62,5 +61,4 @@ export class TraceclientComponent implements OnInit, OnDestroy {
       });
     }
   }
-  
 }
