@@ -30,12 +30,43 @@ export class TraceclientComponent implements OnInit, OnDestroy {
       this.trackserv.trackClick(this.idproduct); // Enregistre le clic si pas encore cliqué dans la session
     }
     this.loadTrackingData();
+
   }
-  
+ 
   loadTrackingData(): void {
     this.trackserv.getTrackingData().subscribe(
-      (data) => {
-        this.tracageTable = data; 
+      (data: any) => {
+        // Vérifier si `data` n'est pas vide
+        if (data && data.length > 0) {
+          data.forEach((item: any) => {
+            console.log(item.idproduct);
+  
+            // Vérifier si l'ID du produit est défini et valide
+            if (item.idproduct) {
+              this.trackserv.getLinksByProductId(item.idproduct).subscribe(
+                (links) => {
+                  // Fusionner les résultats : créer un objet combiné
+                  // Vous pouvez personnaliser la structure ici selon vos besoins
+                  const combinedData = links.map((link: any) => ({
+                    ...item,        // Inclure toutes les propriétés de `item`
+                    ...link,        // Ajouter les propriétés de `link`
+                  }));
+  
+                  // Ajouter les données combinées dans le tableau de suivi
+                  this.tracageTable = [...this.tracageTable, ...combinedData];
+                  console.log('test', this.tracageTable);
+                },
+                (error) => {
+                  console.error('Erreur lors de la récupération des liens de suivi:', error);
+                }
+              );
+            } else {
+              console.error('ID du produit invalide ou manquant');
+            }
+          });
+        } else {
+          console.error('Aucune donnée disponible');
+        }
       },
       (error) => {
         console.error('Erreur lors de la récupération des données de tracage:', error);

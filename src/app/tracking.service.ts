@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { debounceTime, catchError, switchMap } from 'rxjs/operators';
+import { debounceTime, catchError, switchMap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -28,8 +28,25 @@ export class TrackingService {
         console.error('Erreur lors de la récupération des données de suivi', error);
         return of([]); // Retourne un tableau vide en cas d'erreur
       })
+    )
+
+  
+  }
+
+  
+  // Fonction pour filtrer les liens par idproduct
+ 
+  getLinksByProductId(idproduct: number): Observable<any[]> 
+  {
+    console.log("tets",idproduct)
+    return this.http.get<any[]>(`http://localhost:8080/Api/links/${idproduct}`).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des liens de suivi', error);
+        return of([]); // Retourner une liste vide en cas d'erreur
+      })
     );
   }
+  
 
   getClickCount(idproduct: number): Observable<number> {
     return this.http.get<number>(`${this.url}/clicks/${idproduct}`).pipe(
