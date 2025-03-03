@@ -1,1 +1,68 @@
-<p>traceclient works!</p>
+<!DOCTYPE html>
+       <html lang="en" data-bs-theme="light">
+       <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> producut admin</title>
+         <!-- Ajoutez le lien vers Bootstrap CSS -->
+    <!-- Ajouter Font Awesome pour l'icône utilisateur -->
+
+       </head>
+       <body>
+  <!-- Contenu principal -->
+        <main class="content">
+            <header class="topbar">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <div class="topbar-left">
+                            <h4 class="page-title">Tracage</h4>
+                        </div>  
+                        <div class="topbar-right">
+                            <!-- Dropdown Menu -->
+                            <div class="user-dropdown">
+                                <!-- Icône utilisateur pour ouvrir la liste déroulante -->
+                                <button class="btn btn-link user-icon" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-user"></i> <!-- Icône utilisateur -->
+                                </button>
+                                
+                                <div class="dropdown-menu">
+                                    <h6 class="dropdown-header">Welcome!</h6>
+                                    <a class="dropdown-item" routerLink="/profile">Profile</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item logout" routerLink="/signup">Logout</a>
+                                </div>
+                            </div>
+                        </div>          
+                    </div>
+                </div>
+            </header>
+            <div class="container-fluid">
+                <div class="table-container">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="black-text">ProductId</th> 
+                               
+                                <th class="black-text">Page Name</th> 
+
+                                <th class="black-text">Time Spent</th> 
+                               
+                                <th class="black-text">Clicks</th> 
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let trace of tracageTable">
+                                <td>{{ trace.idproduct }}</td>
+                                <td>{{ trace.pagename }}</td>
+                                <td>{{ trace.timespent }}</td>
+                                <td>{{ trace.clicks}}</td>
+                                <td>        
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+</body> 
+</html>
+ 

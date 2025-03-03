@@ -11,7 +11,7 @@ export class ServicesInternetComponent implements OnInit {
   products: any[] = [];
   category: string = '';
 
-  constructor(private route: ActivatedRoute, private productService: ProductService) {}
+  constructor(private route: ActivatedRoute, private productService: ProductService,private router: Router) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const nom = params.get('nom');
@@ -29,4 +29,8 @@ export class ServicesInternetComponent implements OnInit {
       console.log('Products for category:', nom, this.products);
     });
   }
+
+  goToDetails(prod: any): void {
+    this.router.navigate(['/detailsClientsProd', prod.idproduct]);
+}
 }

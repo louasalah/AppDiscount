@@ -103,7 +103,7 @@
 
         <!-- Products -->
         <section class="products">
-            <div class="product-card" *ngFor="let prod of products">
+            <div class="product-card" *ngFor="let prod of products" (click)="goToDetails(prod)" style="cursor: pointer;">
                 <span class="special-offer" *ngIf="prod.discountedPrice < prod.price">Special Offer</span>
                 <div class="product-image">
                     <img [src]="prod.imageUrl" alt="{{ prod.description }}">
@@ -111,7 +111,7 @@
                 <h4>{{ prod.description }}</h4>
                 <div class="price">
                     <span class="discounted-price">{{ prod.discountedPrice }} DT</span>
-                    <span class="price" *ngIf="prod.price !== prod.discountedPrice">{{ prod.price }} DT</span>
+                    <span class="original-price " *ngIf="prod.price !== prod.discountedPrice">{{ prod.price }} DT</span>
                 </div>
                 <button class="coupon-btn">🛒COUPON</button>
             </div>

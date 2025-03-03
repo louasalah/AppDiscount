@@ -61,9 +61,9 @@ import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-cl
     FormsModule,
   ],
   providers: [
-    
+    /*
     provideHttpClient(withFetch()),
-  
+  */
   ],
   bootstrap: [AppComponent]
 })

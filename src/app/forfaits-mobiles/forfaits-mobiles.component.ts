@@ -10,8 +10,10 @@ import { ProductService } from '../product.service';
 export class ForfaitsMobilesComponent  implements OnInit {
   products: any[] = [];
     category: string = '';
+
   
-    constructor(private route: ActivatedRoute, private productService: ProductService) {}
+    constructor(private route: ActivatedRoute, private productService: ProductService,private router: Router  // ✅ Ajout de private pour injecter le router
+    ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -30,5 +32,9 @@ export class ForfaitsMobilesComponent  implements OnInit {
         console.log('Products for category:', nom, this.products);
       });
     }
+
+    goToDetails(prod: any): void {
+      this.router.navigate(['/detailsClientsProd', prod.idproduct]);
+  }
   }
   

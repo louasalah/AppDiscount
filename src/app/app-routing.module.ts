@@ -29,10 +29,9 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'signin', component: SigninComponent },
-  { path: 'trace/:productId', component: TraceclientComponent },
   { path: 'clients', component:ClientsComponent} ,
   { path: 'clientsprod', component:ProductClientsComponent} ,
-  { path: 'detailsClientsProd', component:DetailProdClientsComponent} ,
+  { path: 'detailsClientsProd/:idproduct', component:DetailProdClientsComponent} ,
 
   
   {
@@ -47,6 +46,8 @@ const routes: Routes = [
       { path: 'edit-produit/:id', component: EditProduitComponent },
       { path: 'ajoutDiscount', component: AjoutDiscountComponent },
       { path: 'edit-Holidays/:id', component: EditHolidaysComponent },
+      { path: 'trace/:idproduct', component: TraceclientComponent },
+
     ]
   },
 ];

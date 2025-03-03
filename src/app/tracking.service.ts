@@ -1,55 +1,69 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
-import { debounceTime } from 'rxjs/operators'; 
+import { debounceTime } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TrackingService {
   private url = 'http://localhost:8080/Api';
-  private clicksSubject = new BehaviorSubject<number>(0);
-  private startTime: { [PageName: string]: number } = {};  
+  private clicks: { [idproduct: number]: number } = {}; // Stocker les clics par produit
+  private startTime: { [pageName: string]: number } = {};   // Store start time for each page
+
   constructor(private http: HttpClient) {}
-
-  getClickCount(): Observable<number> {
-    return this.clicksSubject.asObservable();
+   // Méthode pour récupérer les données de tracage
+   getTrackingData(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.url}/trackingData`);
   }
 
-  traceClick(productId: number): Observable<any> {
-    const data = {
-      productId: productId,
-      clicks: 1,
-    };
-    const currentClicks = this.clicksSubject.value;
-    this.clicksSubject.next(currentClicks + 1);
-    return this.http.post(`${this.url}/tracking`, data).pipe(
-      catchError(this.handleError('traceClick'))
-    );
+  getClickCount(idproduct: number): number {
+    return this.clicks[idproduct] || 0; // Retourner le nombre de clics pour le produit
   }
 
- 
+  trackClick(idproduct: number): void {
+    if (!this.clicks[idproduct]) {
+      this.clicks[idproduct] = 0;
+    }
+    this.clicks[idproduct] += 1;
+    console.log(`Click enregistré pour produit ${idproduct}, total :`, this.clicks[idproduct]);
+  }
   
-  startTracking(PageName: string): void {
-    this.startTime[PageName] = Date.now();
+
+  // Start tracking time for a given page
+  startTracking(pageName: string): void {
+    this.startTime[pageName] = Date.now();  // Record the start time when the page is accessed
   }
 
-  traceTimeSpent(PageName: string): Observable<any> {
-    const TimeSpent = Math.floor((Date.now() - this.startTime[PageName]) / 1000);
+  // Track time spent on the page and clicks (without separate traceClick method)
+  traceTimeSpent(pagename: string, idproduct: number): Observable<any> {
+    const timespent = Math.floor((Date.now() - this.startTime[pagename]) / 1000);
+    console.log('Temps passé :', timespent);
+
+    if (timespent <= 0) {
+      console.warn('Temps passé trop court, aucune requête envoyée.');
+      return of(null);
+    }
+
+    // Add the clicks to the data before sending to the server
     const data = {
-      PageName: PageName,
-      TimeSpent: TimeSpent,
+      pagename: pagename,
+      timespent: timespent,
+      idproduct: idproduct,
+      clicks: this.getClickCount(idproduct), // Récupérer les clics pour ce produit
     };
-    return this.http.post(`${this.url}/tracking`, data).pipe(
-      debounceTime(300), 
-      catchError(this.handleError('traceTempsPasse'))
+
+    return this.http.post(`${this.url}/tracking/${idproduct}`, data).pipe(
+      debounceTime(300),
+      catchError(this.handleError('traceTempsPasse')) // Error handling
     );
   }
 
+  // Error handling for failed requests
   private handleError(operation = 'operation') {
     return (error: any): Observable<any> => {
       console.error(`${operation} failed: ${error.message}`);
-      return of(null);  
+      return of(null);
     };
   }
 }
