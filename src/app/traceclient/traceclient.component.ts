@@ -35,13 +35,14 @@ export class TraceclientComponent implements OnInit, OnDestroy {
   loadTrackingData(): void {
     this.trackserv.getTrackingData().subscribe(
       (data) => {
-        this.tracageTable = data;
+        this.tracageTable = data; 
       },
       (error) => {
         console.error('Erreur lors de la récupération des données de tracage:', error);
       }
     );
   }
+  
 
   // Appeler cette méthode pour enregistrer un clic (par ex. bouton acheter)
   handleClick(): void {
