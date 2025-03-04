@@ -3,11 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../product.service';
 
 @Component({
-  selector: 'app-forfaits-mobiles',
-  templateUrl: './forfaits-mobiles.component.html',
-  styleUrl: './forfaits-mobiles.component.css'
+  selector: 'app-accessoires',
+  templateUrl: './accessoires.component.html',
+  styleUrl: './accessoires.component.css'
 })
-export class ForfaitsMobilesComponent  implements OnInit {
+export class AccessoiresComponent implements OnInit {
   products: any[] = [];
     category: string = '';
 
@@ -24,8 +24,6 @@ export class ForfaitsMobilesComponent  implements OnInit {
       }
     });
   }
-  
-  
     loadProducts(nom: string): void {
       this.productService.getProductsByCategory(nom).subscribe(data => {
         this.products = data;

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SmartphonesComponent } from './smartphones/smartphones.component';
-import { ForfaitsMobilesComponent } from './forfaits-mobiles/forfaits-mobiles.component';
 import { ServicesInternetComponent } from './services-internet/services-internet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
@@ -20,11 +19,12 @@ import { AjoutDiscountComponent } from './ajout-discount/ajout-discount.componen
 import { ClientsComponent } from './clients/clients.component';
 import { ProductClientsComponent } from './product-clients/product-clients.component';
 import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-clients.component';
+import { AccessoiresComponent } from './accessoires/accessoires.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'products/category/:nom', component: SmartphonesComponent },
-  { path: 'products/category/:nom', component: ForfaitsMobilesComponent },
+  { path: 'products/category/:nom', component: AccessoiresComponent },
   { path: 'products/category/:nom', component: ServicesInternetComponent },  
   { path: 'profile', component: ProfileComponent },
   { path: 'signup', component: SignupComponent },
