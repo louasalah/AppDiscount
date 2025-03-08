@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TrackingService } from '../tracking.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { of, Subject } from 'rxjs';
+import { catchError, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-traceclient',
@@ -24,40 +24,49 @@ export class TraceclientComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.idproduct = +this.route.snapshot.paramMap.get('idproduct')!;
     this.pagename = this.router.url;
-  
+
     if (this.idproduct) {
       this.trackserv.startTracking(this.pagename);
       this.trackserv.trackClick(this.idproduct); // Enregistre le clic si pas encore cliqué dans la session
     }
+    // Appel de la méthode loadTrackingData
     this.loadTrackingData();
-
   }
- 
+
   loadTrackingData(): void {
-    this.trackserv.getTrackingData().subscribe(
+    this.trackserv.getTrackingData().pipe(
+      catchError(error => {
+        console.error('Erreur lors de la récupération des données de tracage:', error);
+        return of([]); // Retourne un tableau vide en cas d'erreur
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe(
       (data: any) => {
-        // Vérifier si `data` n'est pas vide
+        console.log('Données reçues:', data); // Afficher les données reçues
         if (data && data.length > 0) {
           data.forEach((item: any) => {
             console.log(item.idproduct);
   
-            // Vérifier si l'ID du produit est défini et valide
             if (item.idproduct) {
-              this.trackserv.getLinksByProductId(item.idproduct).subscribe(
+              this.trackserv.getLinksByProductId(item.idproduct).pipe(
+                catchError(error => {
+                  console.error('Erreur lors de la récupération des liens de suivi:', error);
+                  return of([]); // Retourne un tableau vide en cas d'erreur
+                }),
+                takeUntil(this.destroy$)
+              ).subscribe(
                 (links) => {
-                  // Fusionner les résultats : créer un objet combiné
-                  // Vous pouvez personnaliser la structure ici selon vos besoins
+                  console.log('Liens reçus:', links); // Afficher les liens reçus
                   const combinedData = links.map((link: any) => ({
-                    ...item,        // Inclure toutes les propriétés de `item`
-                    ...link,        // Ajouter les propriétés de `link`
+                    ...item, 
+                    ...link,
+                    timespent: item.timespent || 0, // Ajouter timespent
+                    clicks: item.clicks || 0, // Ajouter clicks
                   }));
   
-                  // Ajouter les données combinées dans le tableau de suivi
+                  // Ajouter les données combinées à la table
                   this.tracageTable = [...this.tracageTable, ...combinedData];
-                  console.log('test', this.tracageTable);
-                },
-                (error) => {
-                  console.error('Erreur lors de la récupération des liens de suivi:', error);
+                  console.log('Données combinées:', this.tracageTable);
                 }
               );
             } else {
@@ -67,17 +76,13 @@ export class TraceclientComponent implements OnInit, OnDestroy {
         } else {
           console.error('Aucune donnée disponible');
         }
-      },
-      (error) => {
-        console.error('Erreur lors de la récupération des données de tracage:', error);
       }
     );
   }
   
 
-  // Appeler cette méthode pour enregistrer un clic (par ex. bouton acheter)
   handleClick(): void {
-    this.trackserv.trackClick(this.idproduct);
+    this.trackserv.trackClick(this.idproduct); // Enregistrer un clic sur le produit
   }
 
   ngOnDestroy(): void {
@@ -92,5 +97,9 @@ export class TraceclientComponent implements OnInit, OnDestroy {
         }
       });
     }
+
+    // Emettre les données après destruction si nécessaire
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }
