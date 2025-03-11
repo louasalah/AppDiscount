@@ -25,6 +25,7 @@ import { ClientsComponent } from './clients/clients.component';
 import { ProductClientsComponent } from './product-clients/product-clients.component';
 import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-clients.component';
 import { AccessoiresComponent } from './accessoires/accessoires.component';
+import { CoupontracageComponent } from './coupontracage/coupontracage.component';
 
 
 
@@ -53,6 +54,7 @@ import { AccessoiresComponent } from './accessoires/accessoires.component';
     ProductClientsComponent,
     DetailProdClientsComponent,
     AccessoiresComponent,
+    CoupontracageComponent,
   ],
   imports: [
     BrowserModule,

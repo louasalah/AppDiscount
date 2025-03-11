@@ -1,0 +1,22 @@
+<h2>Logs de suivi des coupons</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Référence Produit</th>
+      <th>Code Coupon</th>
+      <th>Statut</th>
+      <th>Horodatage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let log of trackingLogs">
+      <td>{{ log.email }}</td>
+      <td>{{ log.productReference }}</td>
+      <td>{{ log.couponCode }}</td>
+      <td>{{ log.status }}</td>
+      <td>{{ log.timestamp }}</td>
+    </tr>
+  </tbody>
+</table>
+

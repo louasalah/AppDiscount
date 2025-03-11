@@ -20,6 +20,7 @@ import { ClientsComponent } from './clients/clients.component';
 import { ProductClientsComponent } from './product-clients/product-clients.component';
 import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-clients.component';
 import { AccessoiresComponent } from './accessoires/accessoires.component';
+import { CoupontracageComponent } from './coupontracage/coupontracage.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -47,6 +48,7 @@ const routes: Routes = [
       { path: 'ajoutDiscount', component: AjoutDiscountComponent },
       { path: 'edit-Holidays/:id', component: EditHolidaysComponent },
       { path: 'trace/:idproduct', component: TraceclientComponent },
+      {path: 'couponTracage', component:CoupontracageComponent}
 
     ]
   },

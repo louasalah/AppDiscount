@@ -19,14 +19,38 @@ export class DetailProdClientsComponent implements OnInit, OnDestroy {
   timeSpent: number = 0;
   pagename: string = '';
   timerInterval: any;
+  sessionId: string;
 
   constructor(
     private route: ActivatedRoute,
     private productService: ProductService,
     private router: Router,
     private trackserv: TrackingService,
-    private couponService:CouponService
-  ) {}
+    private couponService: CouponService
+  ) {
+    // Get or create session ID
+    this.sessionId = this.getOrCreateSessionId();
+
+    // Écouter l'événement beforeunload pour détecter la fermeture du navigateur
+    window.addEventListener('beforeunload', () => {
+      // Générer un nouveau sessionId et le sauvegarder
+      const newSessionId = this.generateSessionId();
+      localStorage.setItem('tracking_session_id', newSessionId);
+    });
+  }
+
+  private generateSessionId(): string {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  }
+
+  private getOrCreateSessionId(): string {
+    let sessionId = localStorage.getItem('tracking_session_id');
+    if (!sessionId) {
+      sessionId = this.generateSessionId();
+      localStorage.setItem('tracking_session_id', sessionId);
+    }
+    return sessionId;
+  }
 
   ngOnInit(): void {
     this.idproduct = +this.route.snapshot.paramMap.get('idproduct')!;
@@ -71,20 +95,12 @@ export class DetailProdClientsComponent implements OnInit, OnDestroy {
     );
   }
 
-  handleClick(): void {
-    if (this.idproduct) {
-      this.trackserv.trackClick(this.idproduct).subscribe(() => {
-        this.clicks++;
-        console.log(`Clic enregistré ! Nombre de clics : ${this.clicks}`);
-        this.trackUserLocation();
-      });
-    }
-  }
-
   startTimer(): void {
     this.timerInterval = setInterval(() => {
       this.timeSpent++;
-      console.log(`Temps passé : ${this.timeSpent} secondes`);
+      if (this.timeSpent % 5 === 0) { // Send tracking data every 5 seconds
+        this.trackUserLocation();
+      }
     }, 1000);
   }
 
@@ -94,60 +110,54 @@ export class DetailProdClientsComponent implements OnInit, OnDestroy {
         latitude: this.latitude,
         longitude: this.longitude,
         productId: this.idproduct,
-        clicks: this.clicks,
-        timeSpent: this.timeSpent,
+        sessionId: this.sessionId,
+        timespent: this.timeSpent,
         pagename: this.pagename
       };
 
       this.trackserv.trackUserLocation(this.idproduct, trackingData).subscribe(
-        () => console.log('Données de suivi envoyées !'),
-        (error) => console.error('Erreur lors de l’envoi des données de suivi :', error)
+        () => console.log('Tracking data sent successfully', trackingData),
+        (error) => console.error('Error sending tracking data:', error)
       );
     }
   }
 
   ngOnDestroy(): void {
     clearInterval(this.timerInterval);
+    // Send final tracking data before component is destroyed
     this.trackUserLocation();
   }
 
-
-
-  //envoie email
- 
-
-// Afficher la modale pour l'email
-getCoupon() {
-  Swal.fire({
-    title: 'Obtenez votre coupon !',
-    input: 'email',
-    inputLabel: 'Adresse e-mail',
-    inputPlaceholder: 'Entrez votre e-mail',
-    showCancelButton: true,
-    confirmButtonText: 'Envoyer',
-    cancelButtonText: 'Annuler',
-    preConfirm: (email: string) => {  // 🔧 Typage de 'email'
-      if (!email) {
-        Swal.showValidationMessage('Veuillez saisir une adresse e-mail valide');
+  getCoupon() {
+    Swal.fire({
+      title: 'Obtenez votre coupon !',
+      input: 'email',
+      inputLabel: 'Adresse e-mail',
+      inputPlaceholder: 'Entrez votre e-mail',
+      showCancelButton: true,
+      confirmButtonText: 'Envoyer',
+      cancelButtonText: 'Annuler',
+      preConfirm: (email: string) => {
+        if (!email) {
+          Swal.showValidationMessage('Veuillez saisir une adresse e-mail valide');
+        }
+        return email;
       }
-      return email;
-    }
-  }).then((result: any) => { // 🔧 Typage de 'result'
-    if (result.isConfirmed && result.value) {
-      this.DemandeCouponEmail(result.value);
-    }
-  });
-}
+    }).then((result: any) => {
+      if (result.isConfirmed && result.value) {
+        this.DemandeCouponEmail(result.value);
+      }
+    });
+  }
 
-// Appel API pour envoyer l'e-mail
-DemandeCouponEmail(email: string) {  // 🔧 Typage de 'email'
-  this.couponService.DemandeCouponEmail(email).subscribe(
-    (response) => {
-      Swal.fire('Succès', 'Le coupon a été envoyé avec succès !', 'success');
-    },
-    (error) => {
-      Swal.fire('Erreur', 'Une erreur s\'est produite lors de l\'envoi.', 'error');
-    }
-  );
-}
+  DemandeCouponEmail(email: string) {
+    this.couponService.DemandeCouponEmail(email).subscribe(
+      (response) => {
+        Swal.fire('Succès', 'Le coupon a été envoyé avec succès !', 'success');
+      },
+      (error) => {
+        Swal.fire('Erreur', 'Une erreur s\'est produite lors de l\'envoi.', 'error');
+      }
+    );
+  }
 }

@@ -22,6 +22,7 @@ export class TrackingService {
   private markProductAsClicked(idproduct: number): void {
     sessionStorage.setItem(`clicked_${idproduct}`, 'true');
   }
+
   getTrackingData(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:8080/Api/trackingData').pipe(
       catchError((error) => {
@@ -31,6 +32,14 @@ export class TrackingService {
     );
   }
   
+  getTrackingLinKData(): Observable<any[]> {
+    return this.http.get<any[]>('http://localhost:8080/Api/all').pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la récupération des données de suivi', error);
+        return of([]); // Retourne un tableau vide en cas d'erreur
+      })
+    );
+  }
 
   getLinksByProductId(idproduct: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/links/${idproduct}`).pipe(
@@ -56,15 +65,18 @@ export class TrackingService {
       return of(null);
     }
   
-    return this.http.post(`${this.url}/clicks/${idproduct}`, {}).pipe(
-      debounceTime(300),
-      tap(() => this.markProductAsClicked(idproduct)), // Marquer comme cliqué après le succès
+    return this.http.post(`${this.url}/tracking/${idproduct}`, {}).pipe(
+      tap(() => {
+        this.markProductAsClicked(idproduct); // Marquer comme cliqué une fois le clic enregistré
+        console.log(`Clic enregistré pour le produit ${idproduct}`);
+      }),
       catchError((error) => {
         console.error('Erreur lors de l\'enregistrement du clic', error);
         return of(null);
       })
     );
   }
+  
   
   
   startTracking(pageName: string): void {
@@ -81,21 +93,18 @@ export class TrackingService {
     const timespent = Math.floor((Date.now() - start) / 1000);
     console.log('Temps passé :', timespent);
   
-    if (timespent <= 0) {
+    if (timespent <= 1) { // Ignore si < 5 secondes
       console.warn('Temps passé trop court, aucune requête envoyée.');
       return of(null);
     }
   
-    const data = {
-      pagename: pagename,
-      timespent: timespent,
-      idproduct: idproduct,
-    };
+    const data = { pagename, timespent, idproduct };
   
     return this.http.post(`${this.url}/tracking/${idproduct}`, data).pipe(
       catchError(this.handleError('traceTempsPasse'))
     );
   }
+  
   
   
   private handleError(operation = 'operation') {
@@ -104,9 +113,15 @@ export class TrackingService {
       return of(null);
     };
   }
-
   trackUserLocation(idproduct: number, trackingData: any): Observable<any> {
-    return this.http.post(`${this.url}/tracking/${idproduct}`, trackingData);
+    console.log('Tracking data sent for session:', trackingData.timespent)
+    return this.http.post(`${this.url}/tracking/${idproduct}/${trackingData.sessionId}`, trackingData).pipe(
+      tap(() => console.log('Tracking data sent for session:', trackingData.sessionId)),
+      catchError((error) => {
+        console.error('Error sending tracking data:', error);
+        return of(null);
+      })
+    );
   }
 
   

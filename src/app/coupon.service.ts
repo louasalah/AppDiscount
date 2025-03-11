@@ -12,7 +12,7 @@ export class CouponService {
 
   // Méthode pour envoyer un coupon par e-mail
   DemandeCouponEmail(email: string): Observable<any> {
-    return this.http.post(`${this.url}/sendcoupon`, { email });
+    return this.http.post(`${this.url}/sendcoupon`, {email});
   }
 
   //Méthode pour récupérer les logs d'envoi (pour la page admin)
