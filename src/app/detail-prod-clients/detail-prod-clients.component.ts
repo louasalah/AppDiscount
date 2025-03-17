@@ -151,7 +151,8 @@ export class DetailProdClientsComponent implements OnInit, OnDestroy {
   }
 
   DemandeCouponEmail(email: string) {
-    this.couponService.DemandeCouponEmail(email).subscribe(
+    const idproduct=this.idproduct
+    this.couponService.DemandeCouponEmail(email,idproduct).subscribe(
       (response) => {
         Swal.fire('Succès', 'Le coupon a été envoyé avec succès !', 'success');
       },

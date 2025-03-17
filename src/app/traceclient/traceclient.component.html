@@ -43,7 +43,7 @@
                             <tr>
                                 <th class="black-text">ProductId</th> 
                                
-                                <th class="black-text">Page Name</th> 
+                                <th class="black-text">product name</th> 
 
                                 <th class="black-text">Time Spent</th> 
                                
@@ -51,20 +51,22 @@
                                 <th class="black-text">Entrée</th>
                                 <th class="black-text">idLink</th>
                                 <th class="black-text">latitude</th>
-                                <th class="black-text">longitude</th>
+                                <th class="black-text">longitude</th>                                <th class="black-text">categorie name</th>
+
 
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let trace of tracageTable">
                                 <td>{{ trace.idProduct }}</td>
-                                <td>{{ trace.pageName }}</td>
+                                <td>{{ trace.productName }}</td>
                                 <td>{{ trace.timeSpent }}</td>
                                 <td>{{ trace.clicks}}</td>
                                 <td>{{ trace.entryTimeFormatted }}</td>
                                 <td>{{ trace.linkId }}</td>
                                 <td>{{ trace.latitude }}</td>
-                                <td>{{ trace.longitude }}</td>
+                                <td>{{ trace.longitude }}</td>                                <td>{{ trace.categorieNAme }}</td>
+
 
                                 <td>        
                             </tr>

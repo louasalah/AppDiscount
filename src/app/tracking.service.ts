@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { debounceTime, catchError, switchMap, tap } from 'rxjs/operators';
-
+import { isPlatformBrowser } from '@angular/common';
 @Injectable({
   providedIn: 'root',
 })
@@ -11,7 +11,9 @@ export class TrackingService {
   private startTime: { [pageName: string]: number } = {}; // Temps de suivi
   isTrackingSent: any;
 
-  constructor(private http: HttpClient) {}
+  constructor( private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
+) {}
 
   // Méthode pour vérifier si un produit a déjà été cliqué
   private hasProductBeenClicked(idproduct: number): boolean {

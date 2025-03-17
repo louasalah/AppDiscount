@@ -20,4 +20,11 @@ constructor(private couponService:CouponService ){}
       }
     );
   }
+
+  markAsUsed(id: number) {
+    this.couponService.updateStatus(id, 'used').subscribe(() => {
+      this.trackingLogs = this.trackingLogs.map(log => log.id === id ? { ...log, status: 'used' } : log);
+    });
+  }
+  
 }

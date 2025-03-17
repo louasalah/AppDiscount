@@ -3,20 +3,25 @@
   <thead>
     <tr>
       <th>Email</th>
-      <th>Référence Produit</th>
+      <th>IdLink</th>
+      <th>Référence produit</th>
       <th>Code Coupon</th>
       <th>Statut</th>
-      <th>Horodatage</th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let log of trackingLogs">
       <td>{{ log.email }}</td>
+      <td>{{ log.idLink }}</td>
       <td>{{ log.productReference }}</td>
       <td>{{ log.couponCode }}</td>
       <td>{{ log.status }}</td>
-      <td>{{ log.timestamp }}</td>
+      <td>
+        <button *ngIf="log.status === 'send'" (click)="markAsUsed(log.id)" class="btn btn-primary">
+          Marquer comme Utilisé
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>
-
