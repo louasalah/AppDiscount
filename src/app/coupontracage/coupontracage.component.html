@@ -2,26 +2,40 @@
 <table class="table">
   <thead>
     <tr>
+      <th></th>
+      <th>Id</th>
       <th>Email</th>
       <th>IdLink</th>
       <th>Référence produit</th>
       <th>Code Coupon</th>
+      <th>Date d'envoie</th>
       <th>Statut</th>
       <th>Action</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let log of trackingLogs">
+     
+      <tr *ngFor="let log of trackingLogs; let i = index">
+      <td><input type="checkbox" [(ngModel)]="selectedItems[i]" /></td>
+      <td>{{ log.id }}</td>
       <td>{{ log.email }}</td>
       <td>{{ log.idLink }}</td>
       <td>{{ log.productReference }}</td>
       <td>{{ log.couponCode }}</td>
+      <td>{{ log.sentDate }}</td>
       <td>{{ log.status }}</td>
+      
       <td>
         <button *ngIf="log.status === 'send'" (click)="markAsUsed(log.id)" class="btn btn-primary">
           Marquer comme Utilisé
         </button>
       </td>
     </tr>
-  </tbody>
+  </tbody><br><br>
+  <!-- Bouton global -->
+<button (click)="markSelectedAsUsed()" class="btn-global">
+  Marquer comme Utilisés
+</button>
 </table>
+
+

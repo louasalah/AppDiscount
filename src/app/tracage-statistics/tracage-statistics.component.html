@@ -1,0 +1,22 @@
+<div class="card">
+    <div class="card-header">📊 Statistiques avancées de suivi</div>
+    <div class="card-body">
+      <p><strong>Total des clics :</strong> {{ statistics.totalClicks }}</p>
+      <p><strong>Temps total passé :</strong> {{ statistics.totalTimeSpent }} sec</p>
+  
+      <h5>Produits les plus cliqués :</h5>
+      <ul *ngIf="statistics.mostClickedProducts">
+        <li *ngFor="let product of statistics.mostClickedProducts">
+          Produit {{ product[0] }} - {{ product[1] }} clics
+        </li>
+      </ul>
+  
+      <h5>Produits avec le plus de temps passé :</h5>
+      <ul *ngIf="statistics.mostViewedProducts">
+        <li *ngFor="let product of statistics.mostViewedProducts">
+          Produit {{ product[0] }} - {{ product[1] }} secondes passées
+        </li>
+      </ul>
+    </div>
+  </div>
+  

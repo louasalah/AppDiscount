@@ -23,5 +23,10 @@ export class CouponService {
   updateStatus(id: number, status: string): Observable<any> {
     return this.http.put(`${this.url}/updateStatus/${id}?status=${status}`, {});
   }
+
+  //statistiques
+  getCouponStatistics(): Observable<any> {
+    return this.http.get<any>(`${this.url}/couponStatistics`);  // Cette URL doit correspondre à votre API
+  }
   
 }

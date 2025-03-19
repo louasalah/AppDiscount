@@ -1,0 +1,24 @@
+<div class="coupon-statistics">
+    <h2>Statistiques des Coupons</h2>
+    
+    <div *ngIf="statistics">
+      <p><strong>Total des coupons envoyés:</strong> {{ statistics.totalCouponsSent }}</p>
+      <p><strong>Total des coupons utilisés:</strong> {{ statistics.totalCouponsUsed }}</p>
+      <p><strong>Taux de conversion des coupons:</strong> {{ statistics.conversionRate | number: '1.0-2' }} %</p>
+  
+      <h3>Produits les plus populaires</h3>
+      <ul>
+        <li *ngFor="let product of statistics.popularProducts">
+          {{ product[0] }} - {{ product[1] }} coupons envoyés
+        </li>
+      </ul>
+  
+      <h3>Produits les plus utilisés</h3>
+      <ul>
+        <li *ngFor="let product of statistics.mostUsedProducts">
+          {{ product[0] }} - {{ product[1] }} coupons utilisés
+        </li>
+      </ul>
+    </div>
+  </div>
+  

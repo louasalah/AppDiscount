@@ -6,8 +6,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SmartphonesComponent } from './smartphones/smartphones.component';
 import { ServicesInternetComponent } from './services-internet/services-internet.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SignupComponent } from './signup/signup.component';
-import { SigninComponent } from './signin/signin.component';
 import { TraceclientComponent } from './traceclient/traceclient.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './home/home.component';
@@ -26,6 +24,8 @@ import { ProductClientsComponent } from './product-clients/product-clients.compo
 import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-clients.component';
 import { AccessoiresComponent } from './accessoires/accessoires.component';
 import { CoupontracageComponent } from './coupontracage/coupontracage.component';
+import { CouponStatisticsComponent } from './coupon-statistics/coupon-statistics.component';
+import { TracageStatisticsComponent } from './tracage-statistics/tracage-statistics.component';
 
 
 
@@ -37,8 +37,6 @@ import { CoupontracageComponent } from './coupontracage/coupontracage.component'
     SmartphonesComponent,
     ServicesInternetComponent,
     ProfileComponent,
-    SignupComponent,
-    SigninComponent,
     TraceclientComponent,
     HomeComponent,
     ProductAdminComponent,
@@ -55,6 +53,8 @@ import { CoupontracageComponent } from './coupontracage/coupontracage.component'
     DetailProdClientsComponent,
     AccessoiresComponent,
     CoupontracageComponent,
+    CouponStatisticsComponent,
+    TracageStatisticsComponent,
   ],
   imports: [
     BrowserModule,

@@ -126,6 +126,11 @@ export class TrackingService {
     );
   }
 
+
+  //statistique 
+  getAdvancedTrackingStatistics(): Observable<any> {
+    return this.http.get(`${this.url}/advanced-statistics`);
+  }
   
   
 }

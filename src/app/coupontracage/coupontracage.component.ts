@@ -8,6 +8,7 @@ import { CouponService } from '../coupon.service';
 })
 export class CoupontracageComponent implements OnInit {
   trackingLogs: any[] = [];
+  selectedItems: boolean[] = [];
 constructor(private couponService:CouponService ){}
   ngOnInit() {
     this.couponService.getTrackingLogs().subscribe(
@@ -26,5 +27,15 @@ constructor(private couponService:CouponService ){}
       this.trackingLogs = this.trackingLogs.map(log => log.id === id ? { ...log, status: 'used' } : log);
     });
   }
+  
+markSelectedAsUsed() {
+  this.trackingLogs.forEach((log, index) => {
+    if (this.selectedItems[index]) {
+      this.markAsUsed(log.id);
+    }
+  });
+  // Réinitialiser la sélection après l'action
+  this.selectedItems = [];
+}
   
 }

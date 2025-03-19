@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SmartphonesComponent } from './smartphones/smartphones.component';
 import { ServicesInternetComponent } from './services-internet/services-internet.component';
 import { ProfileComponent } from './profile/profile.component';
-import { SignupComponent } from './signup/signup.component';
-import { SigninComponent } from './signin/signin.component';
 import { TraceclientComponent } from './traceclient/traceclient.component';
 import { HomeComponent } from './home/home.component';
 import { ProductAdminComponent } from './product-admin/product-admin.component';
@@ -21,6 +19,8 @@ import { ProductClientsComponent } from './product-clients/product-clients.compo
 import { DetailProdClientsComponent } from './detail-prod-clients/detail-prod-clients.component';
 import { AccessoiresComponent } from './accessoires/accessoires.component';
 import { CoupontracageComponent } from './coupontracage/coupontracage.component';
+import { CouponStatisticsComponent } from './coupon-statistics/coupon-statistics.component';
+import { TracageStatisticsComponent } from './tracage-statistics/tracage-statistics.component';
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -28,8 +28,6 @@ const routes: Routes = [
   { path: 'products/category/:nom', component: AccessoiresComponent },
   { path: 'products/category/:nom', component: ServicesInternetComponent },  
   { path: 'profile', component: ProfileComponent },
-  { path: 'signup', component: SignupComponent },
-  { path: 'signin', component: SigninComponent },
   { path: 'clients', component:ClientsComponent} ,
   { path: 'clientsprod', component:ProductClientsComponent} ,
   { path: 'detailsClientsProd/:idproduct', component:DetailProdClientsComponent} ,
@@ -48,8 +46,11 @@ const routes: Routes = [
       { path: 'ajoutDiscount', component: AjoutDiscountComponent },
       { path: 'edit-Holidays/:id', component: EditHolidaysComponent },
       { path: 'trace/:idproduct', component: TraceclientComponent },
-      {path: 'couponTracage', component:CoupontracageComponent}
+      {path: 'couponTracage', component:CoupontracageComponent},
+      {path: 'couponStatistic', component:CouponStatisticsComponent},
+      {path: 'TracageStatistic', component:TracageStatisticsComponent},
 
+      
     ]
   },
 ];
