@@ -114,8 +114,8 @@ export class DetailProdClientsComponent implements OnInit, OnDestroy {
         timespent: this.timeSpent,
         pagename: this.pagename
       };
-
-      this.trackserv.trackUserLocation(this.idproduct, trackingData).subscribe(
+console.log("test idproduct",trackingData.productId)
+      this.trackserv.trackUserLocation(trackingData.productId, trackingData).subscribe(
         () => console.log('Tracking data sent successfully', trackingData),
         (error) => console.error('Error sending tracking data:', error)
       );

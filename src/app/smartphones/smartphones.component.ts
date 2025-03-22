@@ -57,6 +57,6 @@ export class SmartphonesComponent implements OnInit {
 
 
   goToDetails(prod: any): void {
-    this.router.navigate(['/detailsClientsProd', prod.idproduct]);
+    this.router.navigate(['/detailsClientsProd', prod.productId]);
 }
 }

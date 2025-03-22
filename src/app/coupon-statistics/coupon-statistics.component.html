@@ -2,7 +2,7 @@
     <h2>Statistiques des Coupons</h2>
     
     <div *ngIf="statistics">
-      <p><strong>Total des coupons envoyés:</strong> {{ statistics.totalCouponsSent }}</p>
+      <p><strong>Total des coupons :</strong> {{ statistics.totalCouponsSent }}</p>
       <p><strong>Total des coupons utilisés:</strong> {{ statistics.totalCouponsUsed }}</p>
       <p><strong>Taux de conversion des coupons:</strong> {{ statistics.conversionRate | number: '1.0-2' }} %</p>
   

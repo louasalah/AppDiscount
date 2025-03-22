@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { debounceTime, catchError, switchMap, tap } from 'rxjs/operators';
 import { isPlatformBrowser } from '@angular/common';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -15,16 +16,18 @@ export class TrackingService {
     @Inject(PLATFORM_ID) private platformId: Object
 ) {}
 
-  // Méthode pour vérifier si un produit a déjà été cliqué
-  private hasProductBeenClicked(idproduct: number): boolean {
+private hasProductBeenClicked(idproduct: number): boolean {
+  if (isPlatformBrowser(this.platformId)) {
     return sessionStorage.getItem(`clicked_${idproduct}`) !== null;
   }
+  return false;
+}
 
-  // Méthode pour marquer un produit comme "cliqué" pour la session en cours
-  private markProductAsClicked(idproduct: number): void {
+private markProductAsClicked(idproduct: number): void {
+  if (isPlatformBrowser(this.platformId)) {
     sessionStorage.setItem(`clicked_${idproduct}`, 'true');
   }
-
+}
   getTrackingData(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:8080/Api/trackingData').pipe(
       catchError((error) => {
@@ -116,7 +119,7 @@ export class TrackingService {
     };
   }
   trackUserLocation(idproduct: number, trackingData: any): Observable<any> {
-    console.log('Tracking data sent for session:', trackingData.timespent)
+    console.log('Tracking data sent for session:',idproduct)
     return this.http.post(`${this.url}/tracking/${idproduct}/${trackingData.sessionId}`, trackingData).pipe(
       tap(() => console.log('Tracking data sent for session:', trackingData.sessionId)),
       catchError((error) => {
