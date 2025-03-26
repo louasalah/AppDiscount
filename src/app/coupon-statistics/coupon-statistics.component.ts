@@ -18,7 +18,8 @@ export class CouponStatisticsComponent implements OnInit {
   getCouponStatistics(): void {
     this.couponService.getCouponStatistics().subscribe(
       data => {
-        this.statistics = data;  // Assignez les données récupérées à la variable statistics
+        this.statistics = data; 
+        console.log('test',this.statistics) // Assignez les données récupérées à la variable statistics
       },
       error => {
         console.error('Erreur lors de la récupération des statistiques', error);
