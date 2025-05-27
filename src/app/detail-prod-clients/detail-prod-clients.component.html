@@ -1,121 +1,138 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Promo Page</title>
-</head>
-<body>
-    <header>
-        <nav class="navbar">
-            <div class="logo">Orange</div>
-            <ul class="nav-links">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Category ▼</a></li>
-                <li><a href="#">Products ▼</a></li>
-            </ul>
-            <div class="search-box">
-                <input type="text" placeholder="Search...">
-                <button class="search-btn">🔍</button>
-            </div>
-        </nav>
-    </header>
 
     <section class="product-main">
-      <div *ngIf="products" class="product-container">
-            <div class="product-image">
-                <img [src]="products.imageUrl" alt="ProdImg">
+        <div *ngIf="product" class="product-container">
+          <div class="product-gallery">
+            <div class="main-image">
+              <img [src]="product.imageUrl" alt="{{product.description}}">
             </div>
-            <div class="product-details">
-                <h2>{{ products.description }}</h2>
-                <p>Experience cutting-edge technology with unmatched performance and innovative features.</p>
-                <div class="price">
-                    <span *ngIf="products.discountedPrice" class="discounted-price">
-                        {{ products.discountedPrice }} DT
-                    </span>
-                    <span *ngIf="products.discountedPrice" class="original-price">
-                        {{ products.price }} DT
-                    </span>
+            <div class="thumbnail-gallery" *ngIf="product.additionalImages?.length">
+              <div class="thumbnail" *ngFor="let image of product.additionalImages; let i = index" 
+                   [ngClass]="{'active': selectedImageIndex === i}"
+                   (click)="selectImage(i)">
+                <img [src]="product?.imageUrl"  alt="Thumbnail {{i+1}}">
+              </div>
+            </div>
+          </div>
+          
+          <div class="product-details">
+            <div class="product-badges" *ngIf="product.discountedPrice < product.price">
+              <span class="badge new-badge" *ngIf="isNewProduct(product)">NOUVEAU</span>
+            </div>
+            
+            <h1 class="product-title">{{ product.description }}</h1>
+            <div class="product-meta">
+              <div class="product-rating">
+                <div class="stars">
+                  <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5].slice(0, product.rating || 4)"></i>
+                  <i class="far fa-star" *ngFor="let star of [1,2,3,4,5].slice(product.rating || 4)"></i>
                 </div>
-                <button class="coupon-btn" (click)="getCoupon()">🛒 Coupon</button>
-
+                <span class="review-count" *ngIf="product.reviewCount">({{product.reviewCount}} avis)</span>
+              </div>
             </div>
+            
+            <div class="product-price">
+              <div class="price-wrapper">
+                <span class="current-price">{{product.discountedPrice}} DT</span>
+                <span class="original-price" *ngIf="product.discountedPrice < product.price">{{product.price}} DT</span>
+              </div>
+              <div class="price-info" *ngIf="product.discountedPrice < product.price">
+                Économisez {{product.price - product.discountedPrice}} DT
+              </div>
+            </div>
+            
+            <div class="product-description">
+              <p>{{product.comment }}</p>
+            </div>
+            
+            <div class="product-options" *ngIf="product.variants?.length">
+              <div class="option-group">
+                <label>Couleur:</label>
+                <div class="color-options">
+                  <div class="color-option" *ngFor="let color of product.variants" 
+                       [style.background-color]="color.colorCode"
+                       [ngClass]="{'selected': selectedVariant === color.id}"
+                       (click)="selectVariant(color.id)">
+                  </div>
+                </div>
+              </div>
+              
+              <div class="option-group" *ngIf="product.capacities?.length">
+                <label>Capacité:</label>
+                <div class="capacity-options">
+                  <button class="capacity-option" *ngFor="let capacity of product.capacities"
+                          [ngClass]="{'selected': selectedCapacity === capacity.value}"
+                          (click)="selectCapacity(capacity.value)">
+                    {{capacity.label}}
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="product-actions">
+                <button class="coupon-btn" (click)="getCoupon()">
+                    <i class="fas fa-ticket-alt"></i>
+                    Obtenir un coupon 
+                </button>
+            </div>
+          
+            
+          </div>
+        </div>
+        
+        <div *ngIf="!product" class="loading-product">
+          <div class="spinner"></div>
+          <p>Chargement du produit...</p>
         </div>
     </section>
-    
-
-    <section class="description">
-        <div class="description-title">Description</div>
-        <p>This smartphone comes with an ultra-fast processor, immersive display, and long-lasting battery to keep you connected all day long.</p>
-    </section>
-
+      
     <section class="best-discount">
         <h2>Best Discounts</h2>
-        <p class="subtitle">Discover amazing offers just for you!</p>
+        <p class="subtitle">Découvre nos offres!</p>
         <div class="products">
-            <div class="product-card">
-                <span class="special-offer">special offer</span>
-                <div class="product-image"></div>
-                <h4>Product Name</h4>
-                <div class="price">
-                    <span class="discounted-price">0.0 DT</span>
-                    <span class="original-price">0.0 DT</span>
-                </div>
-                <button class="coupon-btn">🛒  Coupon</button>
-            </div>
+           <div class="product-card" *ngFor="let product of relatedProducts" (click)="quickView(product.idproduct)" style="cursor: pointer;">
 
-            <div class="product-card">
-                <span class="special-offer">special offer</span>
-                <div class="product-image"></div>
-                <h4>Product Name</h4>
-                <div class="price">
-                    <span class="discounted-price">0.0 DT</span>
-                    <span class="original-price">0.0 DT</span>
+                <span class="special-offer" *ngIf="product.discountedPrice < product.price">Special Offer</span>
+                <div class="product-image">
+                    <img [src]="product.imageUrl" style="height: 150px; width: 120px;" [alt]="product.description">
                 </div>
-                <button class="coupon-btn">🛒 Coupon</button>
-            </div>
-
-            <div class="product-card">
-                <span class="special-offer">special offer</span>
-                <div class="product-image"></div>
-                <h4>product Name</h4>
+                <h4>{{ product.description }}</h4>
                 <div class="price">
-                    <span class="discounted-price">0.0 DT</span>
-                    <span class="original-price">0.0 DT</span>
+                   <span class="current-price">{{product.price}} DT</span>
+                <span class="original-price" *ngIf="product.discountedPrice < product.price">{{product.discountedPrice}} DT</span>
                 </div>
-                <button class="coupon-btn">🛒 Coupon</button>
+                
             </div>
         </div>
     </section>
- <!-- Footer Section -->
- <footer class="footer">
-    <div class="footer-content">
-        <div class="footer-info">
-            <h3>Pourquoi Orange ?</h3>
-            <ul>
-                <li>🔥 Promotions Exclusives</li>
-                <li>🎟️ Codes de Réduction</li>
-                <li>⏳ Offres à Durée Limitée</li>
-            </ul>
-        </div>
-        <div class="footer-contact">
-            <h4>📞 Contactez-nous</h4>
-            <div class="footer-contact-ul">
-                <p>Grand public : 3111 111</p>
-                <p>Business : 3111 222</p>
+
+    <!-- Footer Section -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Pourquoi Orange ?</h3>
+                <ul>
+                     <li><a href="/Aboutus">🔥 Promotions Exclusives</a></li>
+                    <li><a href="/Aboutus">🎟️ Codes de Réduction</a></li>
+                    <li><a href="/Aboutus">⏳ Offres à Durée Limitée</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>📞 Contactez-nous</h4>
+                <div class="footer-contact-ul">
+                    <p>Grand public : 3111 111</p>
+                    <p>Business : 3111 222</p>
+                </div>
+            </div>
+            <div class="footer-categories">
+                <h4>📦 Catégories</h4>
+                <a href="#">Smartphones</a><br>
+                <a href="#">Offres Internet</a><br>
+                <a href="#">Accessoires</a>
             </div>
         </div>
-        <div class="footer-categories">
-            <h4>📦 Catégories</h4>
-            <a href="#">Smartphones</a><br>
-            <a href="#">Offres Internet</a><br>
-            <a href="#">Accessoires</a>
+        <div class="footer-links">
+            <p>© 2025 Orange. Tous droits réservés.</p>
         </div>
-    </div>
-    <div class="footer-links">
-        <p><a href="#">Mentions légales</a> | <a href="#">Conditions générales</a> | <a href="#">Politique de confidentialité</a></p>
-        <p>© 2025 Orange. Tous droits réservés.</p>
-    </div>
-</footer>
-</body>
-</html>
+    </footer>
+
+    

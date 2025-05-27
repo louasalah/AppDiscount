@@ -116,6 +116,7 @@
           <th>Valide Jusqu'à</th>
           <th>Priorité</th>
           <th>orginal price</th>
+          <th>qte discount</th>
           <th>discounted price</th>
         </tr>
       </thead>
@@ -129,9 +130,13 @@
           <td>{{ link.valideFrom | date:'dd/MM/yyyy' }}</td>
           <td>{{ link.valideTo | date:'dd/MM/yyyy' }}</td>
           <td>{{ link.priority }}</td>
+          <td>{{ link.quantiteDiscount }}</td>
       <!-- Prix Original -->
       <td>{{ link.price }} DT</td>
       <td>{{ link.discountedPrice }} DT</td>
+      <td>
+        <button class="btn btn-warning btn-sm" (click)="prolongerLien(link)">Prolonger</button>
+      </td>
     </tr>
       </tbody>
     </table>

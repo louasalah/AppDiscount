@@ -13,7 +13,7 @@ export class LinkDiscProductComponent implements OnInit {
   Links: any[] = [];
   selectedProductId: number=0;
   selectedDiscountId: number=0;
-  selectedProduct: any = null;
+  selectedProduct: any = null;    
   selectedDiscount: any = null;
   link: any = {
     idproduct:0,
@@ -36,6 +36,8 @@ export class LinkDiscProductComponent implements OnInit {
     this.loadProducts();
     this.loadDiscounts();
     this.loadLinkDiscProd();
+
+    console.log("test",this.Links)
   }
 
   loadProducts(): void {
@@ -54,7 +56,9 @@ export class LinkDiscProductComponent implements OnInit {
 
   loadLinkDiscProd(): void {
     this.LPDService.getLinks().subscribe(
-      (data) => { this.Links = data; },
+      (data) => { this.Links = data;
+        console.log("test",data)
+       },
       (error) => { console.error('Erreur lors du chargement des liens:', error); }
     );
   }
@@ -72,6 +76,7 @@ export class LinkDiscProductComponent implements OnInit {
   );
   
 }
+
  
 
   selectDiscount(discountId: number): void {
@@ -110,4 +115,52 @@ export class LinkDiscProductComponent implements OnInit {
       }
     );
   }
+  // prolongerLien(link: any) {
+  //   // Appel à l'API backend pour prolonger ce lien spécifique
+  //   this.LPDService.prolongerLien(link.idLink).subscribe({
+  //     next: () => {
+  //       alert('Remise prolongée avec succès !');
+  //       this.loadLinkDiscProd(); // Recharge la liste des liens
+  //     },
+  //     error: err => {
+  //       console.error(err);
+  //       alert("Erreur lors de la prolongation");
+  //     }
+  //   });
+  // }
+  
+
+
+
+
+
+  prolongerLien(link: any) {
+    const joursProlongation = prompt("Combien de jours voulez-vous prolonger cette remise ?", "7");
+  
+    if (joursProlongation !== null) {
+      const jours = parseInt(joursProlongation, 10);
+  
+      if (isNaN(jours) || jours <= 0) {
+        alert("Veuillez entrer un nombre de jours valide.");
+        return;
+      }
+  
+      const payload = {
+        jours: jours,
+        active: true // ou false selon le cas (tu peux aussi laisser l’utilisateur choisir)
+      };
+  
+      this.LPDService.prolongerLien(link.idLink, payload).subscribe({
+        next: () => {
+          alert('Remise prolongée avec succès !');
+          this.loadLinkDiscProd(); // Recharge la liste
+        },
+        error: err => {
+          console.error(err);
+          alert("Erreur lors de la prolongation");
+        }
+      });
+    }
+  }
+  
 } 

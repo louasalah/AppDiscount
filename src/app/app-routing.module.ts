@@ -28,31 +28,10 @@ const routes: Routes = [
   { path: 'products/category/:nom', component: AccessoiresComponent },
   { path: 'products/category/:nom', component: ServicesInternetComponent },  
   { path: 'profile', component: ProfileComponent },
-  { path: 'clients', component:ClientsComponent} ,
+  { path: 'Aboutus', component:ClientsComponent} ,
   { path: 'clientsprod', component:ProductClientsComponent} ,
   { path: 'detailsClientsProd/:idproduct', component:DetailProdClientsComponent} ,
-
-  
-  {
-    path: 'dashboard',
-    component: DashboardComponent,
-    children: [
-      { path: 'productadmin', component: ProductAdminComponent },
-      { path: 'DiscountDefAdmin', component: DiscountDefAdminComponent },
-      { path: 'LinkDiscProd', component: LinkDiscProductComponent },
-      { path: 'Holidays', component: HolidaysComponent },
-      { path: 'edit-discount/:id', component: EditDiscountComponent },
-      { path: 'edit-produit/:id', component: EditProduitComponent },
-      { path: 'ajoutDiscount', component: AjoutDiscountComponent },
-      { path: 'edit-Holidays/:id', component: EditHolidaysComponent },
-      { path: 'trace/:idproduct', component: TraceclientComponent },
-      {path: 'couponTracage', component:CoupontracageComponent},
-      {path: 'couponStatistic', component:CouponStatisticsComponent},
-      {path: 'TracageStatistic', component:TracageStatisticsComponent},
-
-      
-    ]
-  },
+ 
 ];
 
 @NgModule({

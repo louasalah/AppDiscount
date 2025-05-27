@@ -1,150 +1,241 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orange Store</title>
-</head>
-<body>
-
-    <!-- Navbar -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <div class="logo">Orange</div>
-                <!-- Bouton toggle pour le menu en mode mobile -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-    
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" routerLink="/clients">Home</a>
-                        </li>
-                        
-                        <!-- Menu déroulant -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Category
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
-                                <li><a class="dropdown-item" routerLink="/products/category/Smartphones">Smartphones</a></li>
-                                <li><a class="dropdown-item" routerLink="/products/category/ForfaitsMobiles">ForfaitsMobiles</a></li>
-                                <li><a class="dropdown-item" routerLink="/products/category/ServicesInternet">ServicesInternet</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-    
-                    <!-- Barre de recherche -->
-                    <form class="d-flex ms-auto">
-                        <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">🔍</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
-    
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>"Don't want to spend a lot of money?"</h1>
-            <p>Discover our Products.. Enjoy !</p>
-        </div>
-    </section>
-
-    <!-- Our Categories -->
-    <section class="category-section">
-        <div class="category-cards">
-            <div class="category-card">
-                <h3>Smartphones</h3>
-                <button>See more</button>
-            </div>
-            <div class="category-card">
-                <h3>Accessoires</h3>
-                <button>See more</button>
-            </div>
-            <div class="category-card">
-                <h3>Offres Internet</h3>
-                <button>See more</button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Sidebar + Products -->
-    <div class="content-wrapper">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <h3>Product </h3><br>
-            <div class="search-box">
-                <input type="text" placeholder="Search...">
-                <button class="search-btn">🔍</button>
-            </div>
-            <br><br>
-            
-            <h3>Filter by Price</h3>
-            <input  type="range" min="0" max="1000">
-            
-            <h3>Brand</h3>
-            <label><input type="checkbox"> Samsung</label>
-            <label><input type="checkbox"> Apple</label>
-            <label><input type="checkbox"> Xiaomi</label>
-            <label><input type="checkbox"> Oppo</label>
-            <br><br>
-            <button class="filter-button">Filter</button>
-        </aside>
-
-        <!-- Products -->
-     
-            <section class="products">
-                <div class="product-card">
-                    <span class="special-offer">Special Offer</span>
-                    <div class="product-image">
-                        <img src="#" alt="prodImage">
-                    </div>
-                    <h4>Product Name</h4>
-                    <div class="price">
-                        <span class="discounted-price">0.0 DT</span>
-                        <span class="original-price">0.0 DT</span>
-                    </div>
-    
-                    <button class="coupon-btn">🛒COUPON</button>
-                </div> 
-            </section>
-       
+<div style="background-color: 	#F5F5F5; font-family: Arial, sans-serif; color: rgb(0, 0, 0);">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1 class="page-title">Tous nos produits</h1>
+      <div class="breadcrumb">
+        <a href="/" class="breadcrumb-item">Accueil</a>
+        <span class="breadcrumb-separator">/</span>
+        <span class="breadcrumb-item active">Produits</span>
+      </div>
     </div>
-  <!-- Footer Section -->
-  <footer class="footer">
-    <div class="footer-content">
-        <div class="footer-info">
-            <h3>Pourquoi Orange ?</h3>
-            <ul>
-                <li>🔥 Promotions Exclusives</li>
-                <li>🎟️ Codes de Réduction</li>
-                <li>⏳ Offres à Durée Limitée</li>
-            </ul>
+  </section>
+
+  <!-- Products Section -->
+  <section class="products-section">
+    <div class="container">
+      <!-- Search and Filter Bar -->
+      <div class="search-filter-bar">
+        <div class="search-container">
+          <input 
+            type="text" 
+            class="search-input" 
+            placeholder="Rechercher un produit..." 
+            [(ngModel)]="searchTerm"
+            (input)="onSearchChange()"
+          >
+          <button class="search-btn">
+            <i class="fas fa-search"></i>
+          </button>
         </div>
-        <div class="footer-contact">
-            <h4>📞 Contactez-nous</h4>
-            <div class="footer-contact-ul">
-                <p>Grand public : 3111 111</p>
-                <p>Business : 3111 222</p>
+        
+        <div class="filter-controls">
+          <div class="sort-container">
+            <label    class="label" for="sort-select">Trier par:</label>
+            <select id="sort-select" (change)="onSortChange($event)" [value]="sortOption">
+              <option value="newest">Nouveautés</option>
+              <option value="price-low">Prix croissant</option>
+              <option value="price-high">Prix décroissant</option>
+              <option value="name">Nom</option>
+            </select>
+          </div>
+          
+          <button class="filter-toggle-btn" (click)="toggleFilters()">
+            <i class="fas fa-filter"></i>
+            Filtres
+            <span [class.active]="showFilters">
+              <i class="fas fa-chevron-down"></i>
+            </span>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Expanded Filters -->
+      <div class="filters-expanded" [class.active]="showFilters">
+        <div class="filter-section">
+          <h3 class="filter-title">Catégories</h3>
+          <div class="filter-options">
+            <div class="filter-option">
+              <input 
+                type="radio" 
+                id="category-all" 
+                name="category" 
+                [checked]="selectedCategory === null"
+                (change)="setCategory(null)"
+              >
+              <label for="category-all">Tous</label>
             </div>
+            
+            <div class="filter-option" *ngFor="let category of categories">
+              <input 
+                type="radio" 
+                [id]="'category-' + category.id_category" 
+                name="category" 
+                [checked]="selectedCategory === category.id_category"
+                (change)="setCategory(category.id_category)"
+              >
+              <label [for]="'category-' + category.id_category">{{ category.nom }}</label>
+            </div>
+          </div>
         </div>
-        <div class="footer-categories">
-            <h4>📦 Catégories</h4>
-            <a href="#">Smartphones</a><br>
-            <a href="#">Offres Internet</a><br>
-            <a href="#">Accessoires</a>
+        
+        <div class="filter-section">
+          <h3 class="filter-title">Prix</h3>
+          <div class="price-range">
+            <input 
+              type="range" 
+              
+              id="price-min" 
+              min="0" 
+              max="1000" 
+              step="10" 
+              [(ngModel)]="priceRange.min"
+              (change)="applyFilters()"
+            >
+            <div class="price-inputs">
+              <div class="price-input">
+                <label for="price-min-input">Min:</label>
+                <input
+                  type="number" 
+                  id="price-min-input" 
+                  min="0" 
+                  max="1000" 
+                  [(ngModel)]="priceRange.min"
+                  (change)="applyFilters()"
+                >
+                <span>€</span>
+              </div>
+              <div class="price-input">
+                <label for="price-max-input">Max:</label>
+                <input 
+                  type="number" 
+                  id="price-max-input" 
+                  min="0" 
+                  max="1000" 
+                  [(ngModel)]="priceRange.max"
+                  (change)="applyFilters()"
+                >
+                <span>€</span>
+              </div>
+            </div>
+          </div>
         </div>
+        
+        <div class="filter-actions">
+          <button class="reset-btn" (click)="resetFilters()">
+            <i class="fas fa-undo"></i> Réinitialiser
+          </button>
+        </div>
+      </div>
+      
+      <!-- Product Results -->
+      <div class="product-results">
+        <p class="results-count" *ngIf="!loadingProducts">
+          {{ displayedProducts.length }} produits affichés sur {{ allProducts.length }}
+        </p>
+        
+        <!-- Products Grid -->
+        <div class="products-grid" *ngIf="!loadingProducts; else loadingProductsTemplate">
+          <div class="product-card" *ngFor="let product of displayedProducts">
+           <!----<div class="product-badge" *ngIf="product.badge">{{ product.badge }}</div> -->
+            <div class="wishlist-btn" (click)="toggleWishlist(product.idproduct)">
+              <i [class]="product.inWishlist ? 'fas fa-heart' : 'far fa-heart'"></i>
+            </div>
+            <div class="product-image-container">
+              <img [src]="product.image" [alt]="product.description" class="product-image">
+              <div class="product-actions">
+                <button class="action-btn quick-view" (click)="quickView(product.idproduct)">
+                  <i class="far fa-eye"></i> Aperçu
+                </button>
+                <button class="action-btn add-to-cart" (click)="getCoupon(product.idproduct)">
+                  <i class="fas fa-shopping-cart"></i> Coupon
+                </button>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">{{ product.description }}</h3>
+              <div class="product-rating">
+                <i class="fas fa-star" *ngFor="let star of [1,2,3,4,5].slice(0, product.rating)"></i>
+                <i class="far fa-star" *ngFor="let star of [1,2,3,4,5].slice(product.rating)"></i>
+                <!--<span class="review-count">({{ product.reviewCount }})</span>-->
+              </div>
+              <div class="product-price">
+                <span class="original-price" *ngIf="getOriginalPrice(product)">{{ getOriginalPrice(product) | currency:'EUR' }}</span>
+                <span class="current-price">{{ getCurrentPrice(product) | currency:'EUR' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <ng-template #loadingProductsTemplate>
+          <div class="loading-container">
+            <p class="loading-text">Chargement des produits...</p>
+          </div>
+        </ng-template>
+        
+        <!-- Pagination -->
+        <div class="pagination" *ngIf="totalPages > 1">
+          <button 
+            class="page-btn prev" 
+            [disabled]="currentPage === 1"
+            (click)="setPage(currentPage - 1)"
+          >
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          
+          <button 
+            class="page-btn" 
+            *ngFor="let page of getPageRange()" 
+            [class.active]="currentPage === page"
+            (click)="setPage(page)"
+          >
+            {{ page }}
+          </button>
+          
+          <button 
+            class="page-btn next" 
+            [disabled]="currentPage === totalPages"
+            (click)="setPage(currentPage + 1)"
+          >
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top-btn" *ngIf="isScrolled" (click)="scrollToTop()">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Newsletter Section -->
+  <section class="footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <h3>Pourquoi Orange ?</h3>
+        <ul>
+           <li><a href="/Aboutus">🔥 Promotions Exclusives</a></li>
+                    <li><a href="/Aboutus">🎟️ Codes de Réduction</a></li>
+                    <li><a href="/Aboutus">⏳ Offres à Durée Limitée</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h4>📞 Contactez-nous</h4>
+        <div class="footer-contact-ul">
+          <p>Grand public : 3111 111</p>
+          <p>Business : 3111 222</p>
+        </div>
+      </div>
+      <div class="footer-categories">
+        <h4>📦 Catégories</h4>
+        <a href="#">Smartphones</a><br>
+        <a href="#">Offres Internet</a><br>
+        <a href="#">Accessoires</a>
+      </div>
     </div>
     <div class="footer-links">
-        <p><a href="#">Mentions légales</a> | <a href="#">Conditions générales</a> | <a href="#">Politique de confidentialité</a></p>
-        <p>© 2025 Orange. Tous droits réservés.</p>
+      <p>© 2025 Orange. Tous droits réservés.</p>
     </div>
-</footer>
-
-</body>
-</html>
+  </section>
+</div>

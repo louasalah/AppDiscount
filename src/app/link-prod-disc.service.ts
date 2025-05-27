@@ -15,4 +15,10 @@ private url = 'http://localhost:8080/aapiee';
   getLinks(): Observable<any[]> {
     return this.http.get<any[]>(`${this.url}/getlinks`);
   }
+  
+  prolongerLien(idLink: number, payload: { jours: number, active: boolean }) {
+    const id =idLink
+    return this.http.put(`http://localhost:8080/aapiee/prolonger/${id}`, payload);
+  }
+  
 }

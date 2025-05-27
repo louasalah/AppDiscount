@@ -25,15 +25,45 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    text-align: center;
-    background: linear-gradient(135deg, #ff6600, #e64a19); /* Dégradé de couleur orange */
-    animation: fadeIn 1.5s ease-in;
+    height: 70vh; /* Gardons une hauteur un peu plus grande */
+    background: linear-gradient(135deg, #FF7900, #e26a02); /* Dégradé dynamique */
+    animation: fadeIn 2s ease-in-out; /* Animation fluide */
+    
+    border: 5px solid transparent; /* Bordure transparente au départ */
+    border-image: linear-gradient(135deg, #FF6600, #e64a19); /* Dégradé de bordure */
+    border-image-slice: 1; /* Applique le dégradé sur toute la bordure */
+    border-radius: 25px; /* Coins arrondis pour un look plus moderne */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15); /* Ombre douce pour plus de profondeur */
+    overflow: hidden; /* Cache tout ce qui dépasse */
+    
+    position: relative; /* Pour pouvoir appliquer un effet sur le contenu interne */
+    transition: transform 0.5s ease, box-shadow 0.3s ease; /* Transition fluide pour l'interaction */
+}
+
+/* Ajouter un léger effet au survol */
+.hero:hover {
+    transform: scale(1.05); /* Légère agrandissement */
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); /* Ombre plus marquée lors du survol */
+}
+
+/* Ajouter un léger effet de flou sur le fond */
+.hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: FF7900; /* Fond noir semi-transparent */
+    filter: blur(8px); /* Flou subtil pour faire ressortir le contenu */
+    z-index: 0; /* Placer le fond derrière le contenu */
 }
 
 .hero-content {
     padding: 20px;
     color: #fff;
+    font-weight: bold;
+
 }
 
 .hero-title {
@@ -41,6 +71,8 @@ body, html {
     font-weight: 700;
     margin-bottom: 20px;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    color: #000000;
+     text-align: center;
 }
 
 .highlight {
@@ -51,30 +83,34 @@ body, html {
 .hero-subtitle {
     font-size: 2rem;
     margin-bottom: 15px;
+     text-align: center;
 }
 
 .hero-description {
-    max-width: 600px;
+    max-width: 1600px; /* Limite la largeur pour une meilleure lecture sur grands écrans */
     margin: 20px auto;
-    font-size: 1.2rem;
-    line-height: 1.6;
+    font-size: 1.4rem; /* Taille de police légèrement plus grande pour améliorer la lisibilité */
+    line-height: 1.7; /* Espacement des lignes plus aéré pour améliorer la lecture */
+    color: #fff; /* Couleur du texte blanche pour un contraste maximal */
+    font-weight: 400; /* Poids de police normal pour une lecture agréable */
+    text-align: center; /* Centrer le texte pour un look plus moderne et équilibré */
+    letter-spacing: 0.8px; /* Espacement légèrement plus large entre les lettres */
+    text-transform: capitalize; /* Mettre en majuscule la première lettre de chaque mot pour un effet plus élégant */
+    background: #FF7900; /* Fond légèrement plus opaque pour améliorer le contraste */
+    padding: 20px 30px; /* Plus d'espace autour du texte pour aérer le contenu */
+    border-radius: 12px; /* Bords plus arrondis pour un look moderne */
+    box-shadow: 0 4px 15px #FF7900; /* Ombre douce autour du bloc de texte pour lui donner de la profondeur */
+    transition: all 0.3s ease; /* Transition douce au survol */
 }
 
-.hero-button {
-    margin-top: 20px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 10px;
-    background-color: #fff;
-    color:#FF7900;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: transform 0.3s;
+.hero-description:hover {
+    background: #e64a19; /* Augmentation de l'opacité du fond au survol */
+    box-shadow: 0 6px 20px #e64a19; 
 }
 
-.hero-button:hover {
-    transform: scale(1.1);
-}
+
+
+
 
 /* Animation du fade-in */
 @keyframes fadeIn {
@@ -87,318 +123,59 @@ body, html {
 }
 
 /* Who We Are Section */
-.who-we-are {
-    background-color: #fdf2e9;
-    padding: 80px 20px;
-    text-align: center;
-}
-
-.who-we-are-container {
+/* Section À propos */
+.about {
+    background-color: #fdfdfd;
+    padding: 50px 20px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
     gap: 40px;
-    max-width: 1100px;
-    margin: auto;
-    flex-wrap: wrap;
+    animation: fadeIn 1.5s ease-in;
 }
 
-.who-we-are-text {
-    max-width: 500px;
-    text-align: left;
-}
-
-.who-we-are-text h2 {
-    font-size: 2.8rem;
-    color: #000000;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-.who-we-are-text p {
-    font-size: 1.2rem;
-    color: #555;
-    line-height: 1.8;
-}
-
-.who-we-are-quote {
-    font-size: 1.5rem;
-    font-style: italic;
-    color: #FF7900;
-    margin-top: 20px;
-    border-left: 5px solid #FF7900;
-    padding-left: 15px;
-}
-
-.who-we-are-images {
+.about-entry {
     display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
-.who-we-are-images img {
-    width: 250px;
-    border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    align-items: flex-start;
+    gap: 25px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+    border-left: 4px solid #ff6600;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
+    border-radius: 12px;
     transition: transform 0.3s;
 }
 
-.who-we-are-images img:hover {
-    transform: scale(1.05);
+.about-entry:hover {
+    transform: translateY(-5px);
 }
 
-@media (max-width: 768px) {
-    .who-we-are-container {
-        flex-direction: column;
-        text-align: center;
-    }
-    .who-we-are-text {
-        text-align: center;
-    }
-}
-/* Category Section */
-.category-section {
-    text-align: center;
-    padding: 70px 20px;
-    background-color: #f8f8f8;
-    color:#000000;;
-}
-
-.category-section h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #000000;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    position: relative;
-}
-
-.category-section h2::after {
-    content: '';
-    width: 60px;
-    height: 4px;
-    background-color: #FF7900;
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 2px;
-}
-
-.category-cards {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-}
-
-.category-card {
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    width: 220px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-}
-
-.category-card:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-}
-
-.category-card img {
+.about-entry .icon img {
     width: 80px;
     height: 80px;
-    object-fit: contain;
-    margin-bottom: 20px;
 }
 
-.category-card p {
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: #000000;
+.about-entry .title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #ff6600;
+    margin-bottom: 10px;
 }
 
-
-/* News Section */
-.news-section {
-    padding: 60px 20px;
-    background: linear-gradient(135deg, #ff6600, #e64a19);
-    color: white;
-    text-align: center;
+.about-entry .description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #333333;
 }
 
-.news-cards {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
-}
-
-.news-card {
-    position:relative;
-    background-color: #fff;
-    color: #000;
-    border-radius: 15px;
-    width: 250px;
-    padding: 20px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-    margin: 10px 0;
-}
-
-.news-card:hover {
-    transform: translateY(-10px);
-}
-
-.news-card .image-placeholder {
-    background-color: #ddd;
-    height: 150px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-}
-
-.news-card .discount {
-    position:absolute;
-    top: 10px;
-    left: 10px;
-    background: red;
-    color: white;
-    padding: 5px 10px;
-    font-size: 14px;
-    font-weight: bold;
-    border-radius: 5px;
-}
-
-/* Figures Section */
-.figures-section {
-    text-align: center;
-    padding: 60px 20px;
-    
-}
-
-.figures {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 30px;
-    flex-wrap: wrap;
-    
-}
-
-.figure {
-    background: #ffebd2;
-    padding: 40px;
-    border-radius: 30px;
-    width: 180px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    text-align: center;
-}
-
-.figure h2 {
-    font-size: 2.5rem;
-    color: #ff5e00;
-}
-
-.figure p {
+.about-entry .note {
     margin-top: 10px;
-    color: #000000;
+    font-style: italic;
+    font-size: 1rem;
+    color: #666;
 }
 
-/* Customer Reviews */
-.reviews-section {
-    max-width: 1200px;
-    margin: 50px auto;
-    padding: 20px;
-    text-align: center;
-    
-
-}
-
-.reviews-section h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #000000;
-    margin-bottom: 40px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    position: relative;
-}
-
-.reviews-section h2::after {
-    content: '';
-    width: 60px;
-    height: 4px;
-    background-color: #ff6600;
-    position: absolute;
-    bottom: -15px;
-    left: 50%;
-    transform: translateX(-50%);
-    border-radius: 2px;
-}
-
-.reviews-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.review-card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    padding: 30px;
-    max-width: 350px;
-    text-align: left;
-    transition: transform 0.3s ease;
-    position: relative;
-}
-
-.review-card:hover {
-    transform: translateY(-10px);
-}
-
-.review-card .quote {
-    font-size: 1.5rem;
-    color: #ff7900;
-    margin-bottom: 15px;
-}
-
-.review-card p {
-    margin-bottom: 20px;
-    color: #555;
-    line-height: 1.6;
-}
-
-.review-card .author {
-    font-weight: 700;
-    color: #000;
-}
-
-.review-card .role {
-    color: #888;
-    font-size: 0.9rem;
-}
-
-.stars {
-    color: #FFD700;
-    margin: 10px 0;
-}
-
-
-@media (max-width: 768px) {
-    .reviews-container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
 
 /* Footer */
 .footer {
@@ -421,14 +198,7 @@ body, html {
     margin: 10px;
 }
 
-.footer-info ul {
-    list-style-type: none;
-}
 
-.footer-info ul li {
-    margin: 10px 0;
-    color: white;
-}
 
 .footer-contact-ul p,
 .footer-categories a {
@@ -436,7 +206,11 @@ body, html {
     color: white;
 }
 
-.footer-links a  {
-    margin-top: 20px;
-    color: white;
+.footer-info ul li a {
+    color: white !important;
+    text-decoration: none;
+}
+
+.footer-info ul li a:hover {
+    color: #FF7900; /* Optionnel : orange au survol */
 }

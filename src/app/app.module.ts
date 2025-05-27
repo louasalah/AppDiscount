@@ -48,6 +48,7 @@ import { TracageStatisticsComponent } from './tracage-statistics/tracage-statist
     HolidaysComponent,
     EditHolidaysComponent,
     AjoutDiscountComponent,
+      
     ClientsComponent,
     ProductClientsComponent,
     DetailProdClientsComponent,

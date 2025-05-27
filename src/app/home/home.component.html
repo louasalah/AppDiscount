@@ -1,1 +1,199 @@
-<p>home works!</p>
+
+<div style="background-color: black; font-family: Arial, sans-serif; color: white;">
+    <!-- Hero Carousel Section -->
+    <section class="hero-carousel">
+      <div class="carousel-container">
+        <div class="carousel-slide" *ngFor="let slide of heroSlides; let i = index" [ngClass]="{'active': currentSlide === i}">
+          <div class="carousel-content">
+            <h1 class="hero-title">{{ slide.title }}</h1>
+            <p class="hero-description">{{ slide.description }}</p>
+            <button class="primary-btn" (click)="navigateToShop()">{{ slide.buttonText }}</button>
+          </div>
+          <img [src]="slide.imageUrl" [alt]="slide.title" class="carousel-image">
+        </div>
+        
+        <div class="carousel-indicators">
+          <span *ngFor="let slide of heroSlides; let i = index" 
+                [ngClass]="{'active': currentSlide === i}" 
+                (click)="setCurrentSlide(i)"></span>
+        </div>
+        
+        <button class="carousel-control prev" (click)="prevSlide()">❮</button>
+        <button class="carousel-control next" (click)="nextSlide()">❯</button>
+      </div>
+    </section>
+    
+    <!-- Trending Products Section -->
+    <section class="trending-products">
+      <div class="container">
+        <div class="reviews-section">
+            <h2 class="section-title">Nos offres</h2>
+            <div class="reviews-container">
+            <button class="tab-btn" *ngFor="let tab of productTabs; let i = index" 
+                    [ngClass]="{'active': activeTab === i}"
+                    (click)="setActiveTab(i)">
+              {{ tab }}
+            </button>
+          </div>    
+
+        </div>
+        
+        <div class="products-grid" *ngIf="!loadingProducts; else loadingProductsTemplate">
+          <div class="product-card" *ngFor="let product of filteredProducts">
+            <!--<div class="product-badge" *ngIf="product.badge">{{ product.badge }}</div>-->
+            <div class="wishlist-btn" (click)="toggleWishlist(product.idproduct)"> 
+              <i [ngClass]="product.inWishlist ? 'fas fa-heart' : 'far fa-heart'"></i>
+            </div>
+            <div class="product-image-container">
+              <img [src]="product.image" [alt]="product.description" class="product-image">
+              <div class="product-actions">
+                <button class="action-btn quick-view" (click)="quickView(product.idproduct)">
+                  <i class="far fa-eye"></i> Aperçu
+                </button>
+                <button class="action-btn add-to-cart" (click)="getCoupon(product.idproduct)">
+                  <i class="fas fa-shopping-cart"></i> Coupon
+                </button>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name">{{ product.description }}</h3>
+              <div class="product-price">
+                <span class="original-price" *ngIf="getOriginalPrice(product)">{{ getOriginalPrice(product) | currency:'EUR' }}</span>
+                <span class="current-price">{{ getCurrentPrice(product) | currency:'EUR' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <ng-template #loadingProductsTemplate>
+          <div class="loading-container">
+            <p class="loading-text">Chargement des produits...</p>
+          </div>
+        </ng-template>
+        
+        <div class="view-all-container">
+          <button class="view-all-btn" (click)="navigateToAllProducts()">Voir tous les produits</button>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Special Offer Banner -->
+    <section class="special-offer">
+      <div class="container">
+        <div class="offer-banner">
+          <div class="offer-content">
+              <span class="offer-label">Offre limitée</span>
+        <h2 class="offer-title">Jusqu'à {{ remizeProduct?.discountPercentage }} de réduction</h2>
+        <p class="offer-description" >Sur {{ remizeProduct?.referenceProduct }} ! ! !</p>
+        <div class="countdown-timer">
+              <div class="time-unit">
+                <span class="time">{{ countdown.days }}</span>
+                <span class="label">Jours</span>
+              </div>
+              <div class="time-unit">
+                <span class="time">{{ countdown.hours }}</span>
+                <span class="label">Heures</span>
+              </div>
+              <div class="time-unit">
+                <span class="time">{{ countdown.minutes }}</span>
+                <span class="label">Min</span>
+              </div>
+              <div class="time-unit">
+                <span class="time">{{ countdown.seconds }}</span>
+                <span class="label">Sec</span>
+              </div>
+            </div>
+            <button class="primary-btn" (click)="quickView(remizeProduct.productId)">Voir l'offre</button>
+          </div>
+          <div class="offer-image">
+            <img [src]="specialOfferImage" alt="Special Offer" class="offer-img">
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Figures Section -->
+    <section class="key-figures">
+      <div class="container">
+        <div class="reviews-section">
+          <h2 class="section-title">Chiffres Clés</h2>
+          <div class="reviews-container">
+            <div class="figure" *ngFor="let figure of keyFigures">
+              <h3 class="figure-value">{{ figure.value }}</h3>
+              <p class="figure-description">{{ figure.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Customer Reviews Section -->
+    <section class="customer-reviews">
+      <div class="container">
+        <div class="reviews-section">
+          <h2 class="section-title">Avis de nos clients</h2>
+          <div class="reviews-container">
+            <div class="review-card" *ngFor="let review of clientReviews">
+              <div class="quote">"{{ review.quote }}"</div>
+              <p class="review-content">{{ review.content }}</p>
+              <p class="author">{{ review.author }}</p>
+              <p class="role">{{ review.role }}</p>
+              <div class="stars">{{ review.stars }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Benefits Section -->
+    <section class="benefits">
+      <div class="container">
+        <h2 class="section-title">Nos Avantages</h2>
+        <div class="benefits-grid">
+          <div class="benefit-card"  routerLink="/Aboutus"  *ngFor="let benefit of benefits">
+            <div class="benefit-icon">
+              <img [src]="benefit.img" style="height: 50px; width: 53px;"/>
+              <i [class]="benefit.icon"></i>
+            </div>
+            <div class="benefit-info">
+              <h3 class="benefit-title" style="color: #FF7900">{{ benefit.title }}</h3>
+              <p class="benefit-description">{{ benefit.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+ 
+    
+    <!-- Newsletter Section -->
+    <section class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>Pourquoi Orange ?</h3>
+                <ul>
+                    <li><a href="/Aboutus">🔥 Promotions Exclusives</a></li>
+                    <li><a href="/Aboutus">🎟️ Codes de Réduction</a></li>
+                    <li><a href="/Aboutus">⏳ Offres à Durée Limitée</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>📞 Contactez-nous</h4>
+                <div class="footer-contact-ul">
+                    <p>Grand public : 3111 111</p>
+                    <p>Business : 3111 222</p>
+                </div>
+            </div>
+            <div class="footer-categories">
+                <h4>📦 Catégories</h4>
+                <a href="#">Smartphones</a><br>
+                <a href="#">Offres Internet</a><br>
+                <a href="#">Accessoires</a>
+            </div>
+        </div>
+        <div class="footer-links">
+            <p>© 2025 Orange. Tous droits réservés.</p>
+        </div>
+    </section>
+  </div>
+  
